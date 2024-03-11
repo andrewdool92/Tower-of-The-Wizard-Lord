@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -10,11 +11,13 @@ public class PlayerController : MonoBehaviour
 
     private Vector2 _moveDirection;
     private Rigidbody2D _body;
+    private Animator _animator;
 
     // Start is called before the first frame update
     void Start()
     {
         _body = GetComponent<Rigidbody2D>();
+        _animator = GetComponent<Animator>();
 
         inputReader.MoveEvent += handleMove;
     }
@@ -39,15 +42,19 @@ public class PlayerController : MonoBehaviour
     {
         if (_moveDirection != Vector2.zero)
         {
+            _animator.SetFloat("AnimMoveX", _moveDirection.x);
+            _animator.SetFloat("AnimMoveY", _moveDirection.y);
+            _animator.SetBool("Running", true);
+            
             _body.AddForce(_moveDirection * acceleration * Time.deltaTime);
             _body.velocity = Vector2.ClampMagnitude(_body.velocity, topSpeed);
         }
+        else
+        {
+            _animator.SetBool("Running", false);
+        }
+
+        _animator.SetFloat("Speed", _body.velocity.magnitude);
     }
 }
 
-public enum playerState
-{
-    idle,
-    walking,
-    casting
-}
