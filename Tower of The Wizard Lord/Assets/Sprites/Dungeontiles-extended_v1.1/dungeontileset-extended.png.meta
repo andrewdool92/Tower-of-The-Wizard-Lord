@@ -7035,7 +7035,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dungeontileset-extended_669
+      name: button_red_up
       rect:
         serializedVersion: 2
         x: 128
@@ -7056,7 +7056,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dungeontileset-extended_670
+      name: button_red_down
       rect:
         serializedVersion: 2
         x: 144
@@ -7077,7 +7077,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dungeontileset-extended_671
+      name: button_blue_up
       rect:
         serializedVersion: 2
         x: 160
@@ -7098,7 +7098,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dungeontileset-extended_672
+      name: button_blue_down
       rect:
         serializedVersion: 2
         x: 176
@@ -7119,7 +7119,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dungeontileset-extended_673
+      name: switch_left
       rect:
         serializedVersion: 2
         x: 192
@@ -7140,7 +7140,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dungeontileset-extended_674
+      name: switch_right
       rect:
         serializedVersion: 2
         x: 208
@@ -8022,7 +8022,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dungeontileset-extended_716
+      name: torch_flame_1
       rect:
         serializedVersion: 2
         x: 128
@@ -8043,7 +8043,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dungeontileset-extended_717
+      name: torch_flame_2
       rect:
         serializedVersion: 2
         x: 144
@@ -8064,7 +8064,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dungeontileset-extended_718
+      name: torch_flame_3
       rect:
         serializedVersion: 2
         x: 160
@@ -8085,7 +8085,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dungeontileset-extended_719
+      name: torch_flame_4
       rect:
         serializedVersion: 2
         x: 176
@@ -8106,7 +8106,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dungeontileset-extended_720
+      name: torch_flame_5
       rect:
         serializedVersion: 2
         x: 192
@@ -8127,7 +8127,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dungeontileset-extended_721
+      name: torch_flame_6
       rect:
         serializedVersion: 2
         x: 208
@@ -8148,7 +8148,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dungeontileset-extended_722
+      name: torch_flame_7
       rect:
         serializedVersion: 2
         x: 224
@@ -8169,7 +8169,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dungeontileset-extended_723
+      name: torch_flame_8
       rect:
         serializedVersion: 2
         x: 240
@@ -8274,7 +8274,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dungeontileset-extended_729
+      name: torch base
       rect:
         serializedVersion: 2
         x: 128
@@ -8295,158 +8295,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dungeontileset-extended_730
-      rect:
-        serializedVersion: 2
-        x: 144
-        y: 640
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f590fc231d9ea3343be825501cd0ca00
-      internalID: 1988991572
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: dungeontileset-extended_731
-      rect:
-        serializedVersion: 2
-        x: 160
-        y: 640
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 82f130e436b7ebf4bb9a641b51f231de
-      internalID: 1890072401
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: dungeontileset-extended_732
-      rect:
-        serializedVersion: 2
-        x: 176
-        y: 640
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 71a3335bb45d5f740b4b77b6e3842afc
-      internalID: -482677330
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: dungeontileset-extended_733
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 640
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9c84559f9e17556419ca0174099808be
-      internalID: 1406144265
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: dungeontileset-extended_734
-      rect:
-        serializedVersion: 2
-        x: 208
-        y: 640
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e35a1d8a5759f01489a8bbacfe766495
-      internalID: -228468468
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: dungeontileset-extended_735
-      rect:
-        serializedVersion: 2
-        x: 224
-        y: 640
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 392129ebb5d1fe7458e314967a957e87
-      internalID: 2045048258
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: dungeontileset-extended_736
-      rect:
-        serializedVersion: 2
-        x: 240
-        y: 640
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d301d29da5d8ef541b405bacf12e49c7
-      internalID: -885527871
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: dungeontileset-extended_737
+      name: torch_unlit
       rect:
         serializedVersion: 2
         x: 256
-        y: 646
+        y: 656
         width: 16
         height: 16
       alignment: 0
@@ -9376,6 +9229,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      button_blue_down: 1231851190
+      button_blue_up: 778918117
+      button_red_down: 1287145255
+      button_red_up: -1490972430
       dungeontileset-extended_0: -520279839
       dungeontileset-extended_10: 486238653
       dungeontileset-extended_100: -1155385306
@@ -9962,13 +9819,7 @@ TextureImporter:
       dungeontileset-extended_666: -143180381
       dungeontileset-extended_667: 974571487
       dungeontileset-extended_668: -2052845559
-      dungeontileset-extended_669: -49746407
       dungeontileset-extended_67: -1271047881
-      dungeontileset-extended_670: -1490972430
-      dungeontileset-extended_671: 1287145255
-      dungeontileset-extended_672: 778918117
-      dungeontileset-extended_673: 1231851190
-      dungeontileset-extended_674: -1101277847
       dungeontileset-extended_675: -810006261
       dungeontileset-extended_676: 270999306
       dungeontileset-extended_677: 588683352
@@ -10011,21 +9862,12 @@ TextureImporter:
       dungeontileset-extended_713: 1465080084
       dungeontileset-extended_714: 1393686650
       dungeontileset-extended_715: 27828880
-      dungeontileset-extended_716: 886762199
-      dungeontileset-extended_717: 1753438500
-      dungeontileset-extended_718: 2061323626
-      dungeontileset-extended_719: 1081842980
       dungeontileset-extended_72: -1096524920
-      dungeontileset-extended_720: 225910734
-      dungeontileset-extended_721: 80596214
-      dungeontileset-extended_722: 1925960526
-      dungeontileset-extended_723: -1853870155
       dungeontileset-extended_724: 869013070
       dungeontileset-extended_725: -611008550
       dungeontileset-extended_726: -120159542
       dungeontileset-extended_727: 1352549815
       dungeontileset-extended_728: 2060903636
-      dungeontileset-extended_729: -449877480
       dungeontileset-extended_73: 84546181
       dungeontileset-extended_730: 371568027
       dungeontileset-extended_731: 1988991572
@@ -10034,7 +9876,6 @@ TextureImporter:
       dungeontileset-extended_734: 1406144265
       dungeontileset-extended_735: -228468468
       dungeontileset-extended_736: 2045048258
-      dungeontileset-extended_737: -885527871
       dungeontileset-extended_738: 337140452
       dungeontileset-extended_739: -322275057
       dungeontileset-extended_74: -1442089122
@@ -10141,6 +9982,18 @@ TextureImporter:
       stairs_down_right: 1165730304
       stairs_left: 1571000435
       stairs_right: -629766943
+      switch_left: -1101277847
+      switch_right: -810006261
+      torch base: 371568027
+      torch_flame_1: 1753438500
+      torch_flame_2: 2061323626
+      torch_flame_3: 1081842980
+      torch_flame_4: 225910734
+      torch_flame_5: 80596214
+      torch_flame_6: 1925960526
+      torch_flame_7: -1853870155
+      torch_flame_8: 869013070
+      torch_unlit: 337140452
       wall_1: -1486786588
       wall_2: -684825197
       wall_3: 970549215
