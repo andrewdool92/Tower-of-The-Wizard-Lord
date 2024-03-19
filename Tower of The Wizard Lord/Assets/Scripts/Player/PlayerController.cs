@@ -8,10 +8,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private InputReader inputReader;
     [SerializeField] private float acceleration;
     [SerializeField] private float topSpeed;
+    private float _castingTime;
 
     private Vector2 _moveDirection;
     private Rigidbody2D _body;
     private Animator _animator;
+
+    private delegate void Movement();
+    Movement _move;
+
 
     // Start is called before the first frame update
     void Start()
@@ -19,7 +24,11 @@ public class PlayerController : MonoBehaviour
         _body = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
 
+        _move = mobile;
+
         inputReader.MoveEvent += handleMove;
+        inputReader.SpellcastEvent += handleSpellcast;
+        inputReader.SpellcastCancelledEvent += handleSpellcastCancelled;
     }
 
     private void OnDestroy()
@@ -30,7 +39,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        move();
+        _move();
     }
 
     void handleMove(Vector2 input)
@@ -38,15 +47,27 @@ public class PlayerController : MonoBehaviour
         _moveDirection = input;
     }
 
-    void move()
+    void handleSpellcast()
+    {
+        _animator.SetBool("Running", false);
+        _castingTime = Time.time;
+        _move = rooted;
+    }
+
+    void handleSpellcastCancelled()
+    {
+        _move = mobile;
+
+    }
+
+    void mobile()
     {
         if (_moveDirection != Vector2.zero)
         {
-            _animator.SetFloat("AnimMoveX", _moveDirection.x);
-            _animator.SetFloat("AnimMoveY", _moveDirection.y);
+            updateAnimatorVector();
             _animator.SetBool("Running", true);
             
-            _body.AddForce(_moveDirection * acceleration * Time.deltaTime);
+            _body.AddForce(_moveDirection * acceleration);
             _body.velocity = Vector2.ClampMagnitude(_body.velocity, topSpeed);
         }
         else
@@ -55,6 +76,20 @@ public class PlayerController : MonoBehaviour
         }
 
         _animator.SetFloat("Speed", _body.velocity.magnitude);
+    }
+
+    void rooted()
+    {
+        if (_moveDirection != Vector2.zero)
+        {
+            updateAnimatorVector();
+        }
+    }
+
+    private void updateAnimatorVector()
+    {
+        _animator.SetFloat("AnimMoveX", _moveDirection.x);
+        _animator.SetFloat("AnimMoveY", _moveDirection.y);
     }
 }
 

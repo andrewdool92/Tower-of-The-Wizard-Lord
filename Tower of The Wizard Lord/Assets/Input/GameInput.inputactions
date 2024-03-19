@@ -24,7 +24,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Interact",
+                    "name": "Spellcast",
                     "type": "Button",
                     "id": "239ad81f-61e8-4400-87c3-32b24e39d11e",
                     "expectedControlType": "Button",
@@ -171,7 +171,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Interact",
+                    "action": "Spellcast",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
