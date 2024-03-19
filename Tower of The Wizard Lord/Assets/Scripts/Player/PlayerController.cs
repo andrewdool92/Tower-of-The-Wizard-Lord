@@ -50,6 +50,7 @@ public class PlayerController : MonoBehaviour
     void handleSpellcast()
     {
         _animator.SetBool("Running", false);
+        _animator.SetBool("Casting", true);
         _castingTime = Time.time;
         _move = rooted;
     }
@@ -57,7 +58,7 @@ public class PlayerController : MonoBehaviour
     void handleSpellcastCancelled()
     {
         _move = mobile;
-
+        _animator.SetBool("Casting", false);
     }
 
     void mobile()
