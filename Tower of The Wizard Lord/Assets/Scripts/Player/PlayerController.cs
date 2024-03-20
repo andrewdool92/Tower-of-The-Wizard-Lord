@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private InputReader inputReader;
     [SerializeField] private float acceleration;
     [SerializeField] private float topSpeed;
-    private float _castingTime;
+    private float _timer;
 
     private Vector2 _moveDirection;
     private Rigidbody2D _body;
@@ -22,7 +22,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         _body = GetComponent<Rigidbody2D>();
-        _animator = GetComponent<Animator>();
+//        _animator = GetComponent<Animator>();
+        _animator = GetComponentInChildren<Animator>();
 
         _move = mobile;
 
@@ -34,9 +35,17 @@ public class PlayerController : MonoBehaviour
     private void OnDestroy()
     {
         inputReader.MoveEvent -= handleMove;
+        inputReader.SpellcastEvent -= handleSpellcast;
+        inputReader.SpellcastCancelledEvent -= handleSpellcastCancelled;
     }
 
     // Update is called once per frame
+    private void Update()
+    {
+        _timer += Time.deltaTime;
+        _animator.SetFloat("HoldTime", _timer);
+    }
+
     void FixedUpdate()
     {
         _move();
@@ -49,10 +58,11 @@ public class PlayerController : MonoBehaviour
 
     void handleSpellcast()
     {
+        _timer = 0;
+        _move = rooted;
         _animator.SetBool("Running", false);
         _animator.SetBool("Casting", true);
-        _castingTime = Time.time;
-        _move = rooted;
+        _animator.SetFloat("HoldTime", _timer);
     }
 
     void handleSpellcastCancelled()
