@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditorInternal;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -9,8 +10,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float acceleration;
     [SerializeField] private float topSpeed;
     [SerializeField] private float spellCooldown;
+    [SerializeField] private Spell defaultSpell;
+    private Spell _spell;
 
     private Vector2 _moveDirection;
+    private Vector2 _facingDirection;
     private Rigidbody2D _body;
     private Animator _animator;
 
@@ -34,6 +38,9 @@ public class PlayerController : MonoBehaviour
         inputReader.MoveEvent += handleMove;
         inputReader.SpellcastEvent += handleSpellcast;
         inputReader.SpellcastCancelledEvent += handleSpellcastCancelled;
+
+        _spell = Instantiate(defaultSpell);
+        _facingDirection = Vector2.down;
     }
 
     private void OnDestroy()
@@ -80,16 +87,19 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            _timer = 0;
             _action = releaseSpell;
             _move = noAction;
+            _spell.activate(transform.position, _facingDirection);
         }
+        
+        _timer = 0;
     }
 
     void mobile()
     {
         if (_moveDirection != Vector2.zero)
         {
+            updateFacing();
             updateAnimatorVector();
             _animator.SetBool("Running", true);
             
@@ -108,6 +118,7 @@ public class PlayerController : MonoBehaviour
     {
         if (_moveDirection != Vector2.zero)
         {
+            updateFacing();
             updateAnimatorVector();
         }
     }
@@ -138,6 +149,26 @@ public class PlayerController : MonoBehaviour
     private void noAction()
     {
 
+    }
+
+    private void updateFacing()
+    {
+        if ( _moveDirection.y < 0)
+        {
+            _facingDirection = Vector2.down;
+        }
+        else if ( _moveDirection.x < 0)
+        {
+            _facingDirection = Vector2.left;
+        }
+        else if ( _moveDirection.x > 0)
+        {
+            _facingDirection = Vector2.right;
+        } 
+        else
+        {
+            _facingDirection = Vector2.up;
+        }
     }
 }
 
