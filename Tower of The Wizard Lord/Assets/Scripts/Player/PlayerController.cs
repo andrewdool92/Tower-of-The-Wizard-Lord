@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private InputReader inputReader;
     [SerializeField] private float acceleration;
     [SerializeField] private float topSpeed;
-    private float _timer;
+    [SerializeField] private float spellCooldown;
 
     private Vector2 _moveDirection;
     private Rigidbody2D _body;
@@ -17,15 +17,19 @@ public class PlayerController : MonoBehaviour
     private delegate void Movement();
     Movement _move;
 
+    private delegate void Action();
+    Action _action;
+    private float _timer;
+
 
     // Start is called before the first frame update
     void Start()
     {
         _body = GetComponent<Rigidbody2D>();
-//        _animator = GetComponent<Animator>();
         _animator = GetComponentInChildren<Animator>();
 
         _move = mobile;
+        _action = noAction;
 
         inputReader.MoveEvent += handleMove;
         inputReader.SpellcastEvent += handleSpellcast;
@@ -42,8 +46,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        _timer += Time.deltaTime;
-        _animator.SetFloat("HoldTime", _timer);
+        _action();
     }
 
     void FixedUpdate()
@@ -60,6 +63,7 @@ public class PlayerController : MonoBehaviour
     {
         _timer = 0;
         _move = rooted;
+        _action = chargingSpell;
         _animator.SetBool("Running", false);
         _animator.SetBool("Casting", true);
         _animator.SetFloat("HoldTime", _timer);
@@ -67,8 +71,19 @@ public class PlayerController : MonoBehaviour
 
     void handleSpellcastCancelled()
     {
-        _move = mobile;
         _animator.SetBool("Casting", false);
+        
+        if (_timer < 0.2)
+        {
+            _move = mobile;
+            _action = noAction;
+        }
+        else
+        {
+            _timer = 0;
+            _action = releaseSpell;
+            _move = noAction;
+        }
     }
 
     void mobile()
@@ -101,6 +116,28 @@ public class PlayerController : MonoBehaviour
     {
         _animator.SetFloat("AnimMoveX", _moveDirection.x);
         _animator.SetFloat("AnimMoveY", _moveDirection.y);
+    }
+
+    private void chargingSpell()
+    {
+        _timer += Time.deltaTime;
+        _animator.SetFloat("HoldTime", _timer);
+    }
+
+    private void releaseSpell()
+    {
+        _timer += Time.deltaTime;
+        
+        if (_timer > spellCooldown)
+        {
+            _action = noAction;
+            _move = mobile;
+        }
+    }
+
+    private void noAction()
+    {
+
     }
 }
 
