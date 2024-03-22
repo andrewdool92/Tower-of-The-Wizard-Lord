@@ -10,7 +10,7 @@ public class Spell : MonoBehaviour
 
     private Transform _transform;
     private Collider2D _collider;
-    private SpriteRenderer _sprite;
+    private Animator _animator;
 
     private delegate void update();
     private update onUpdate;
@@ -20,10 +20,9 @@ public class Spell : MonoBehaviour
     {
         _transform = GetComponent<Transform>();
         _collider = GetComponent<Collider2D>();
-        _sprite = GetComponent<SpriteRenderer>();
+        _animator = GetComponent<Animator>();
 
         _collider.enabled = false;
-        _sprite.enabled = false;
         timer = 0;
 
         onUpdate = noActivity;
@@ -44,7 +43,7 @@ public class Spell : MonoBehaviour
 
         timer = activeTime;
         _collider.enabled = true;
-        _sprite.enabled = true;
+        _animator.SetTrigger("Activate");
 
         onUpdate = advance;
     }
@@ -55,7 +54,6 @@ public class Spell : MonoBehaviour
         if (timer < 0)
         {
             _collider.enabled = false;
-            _sprite.enabled = false;
 
             onUpdate = noActivity;
         }
