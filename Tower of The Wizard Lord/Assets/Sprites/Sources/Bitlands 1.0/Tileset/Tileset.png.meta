@@ -1029,7 +1029,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tileset_126
+      name: Door_down_closed
       rect:
         serializedVersion: 2
         x: 160
@@ -1050,7 +1050,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tileset_128
+      name: Door_down_open
       rect:
         serializedVersion: 2
         x: 208
@@ -1071,7 +1071,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tileset_130
+      name: Door_side_open
       rect:
         serializedVersion: 2
         x: 256
@@ -1092,7 +1092,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tileset_131
+      name: Door_side_closed
       rect:
         serializedVersion: 2
         x: 288
@@ -1123,6 +1123,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      Door_down_closed: -55365277
+      Door_down_open: 1710155647
+      Door_side_closed: -773487896
+      Door_side_open: -62710975
       Tileset_0: -362274062
       Tileset_1: -1537237720
       Tileset_10: -277523702
@@ -1154,13 +1158,9 @@ TextureImporter:
       Tileset_123: 212474080
       Tileset_124: 1547821213
       Tileset_125: -1230814060
-      Tileset_126: -55365277
       Tileset_127: 38974241
-      Tileset_128: 1710155647
       Tileset_129: -700592142
       Tileset_13: 593893371
-      Tileset_130: -62710975
-      Tileset_131: -773487896
       Tileset_14: 1451769879
       Tileset_15: 1803520037
       Tileset_16: -1492169218

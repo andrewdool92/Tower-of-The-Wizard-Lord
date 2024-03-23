@@ -21,8 +21,8 @@ public class PlayerController : MonoBehaviour
     private delegate void Movement();
     Movement _move;
 
-    private delegate void Action();
-    Action _action;
+    private delegate void OnAction();
+    OnAction _action;
     private float _timer;
 
 
