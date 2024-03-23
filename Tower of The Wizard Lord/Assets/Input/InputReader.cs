@@ -34,8 +34,8 @@ public class InputReader : ScriptableObject, GameInput.IGameplayActions, GameInp
 
     public event Action<Vector2> MoveEvent;
 
-    public event Action InteractEvent;
-    public event Action InteractCancelledEvent;
+    public event Action SpellcastEvent;
+    public event Action SpellcastCancelledEvent;
 
     public event Action ClickEvent;
     public event Action ClickCancelledEvent;
@@ -89,15 +89,15 @@ public class InputReader : ScriptableObject, GameInput.IGameplayActions, GameInp
         }
     }
 
-    public void OnInteract(InputAction.CallbackContext context)
+    public void OnSpellcast(InputAction.CallbackContext context)
     {
         if (context.phase == InputActionPhase.Performed)
         {
-            InteractEvent?.Invoke();
+            SpellcastEvent?.Invoke();
         }
         if (context.phase == InputActionPhase.Canceled)
         {
-            InteractCancelledEvent?.Invoke();
+            SpellcastCancelledEvent?.Invoke();
         }
     }
     public void OnClick(InputAction.CallbackContext context)

@@ -46,7 +46,7 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Interact"",
+                    ""name"": ""Spellcast"",
                     ""type"": ""Button"",
                     ""id"": ""239ad81f-61e8-4400-87c3-32b24e39d11e"",
                     ""expectedControlType"": ""Button"",
@@ -193,7 +193,7 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Interact"",
+                    ""action"": ""Spellcast"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -245,7 +245,7 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
         m_gameplay = asset.FindActionMap("gameplay", throwIfNotFound: true);
         m_gameplay_Pause = m_gameplay.FindAction("Pause", throwIfNotFound: true);
         m_gameplay_Movement = m_gameplay.FindAction("Movement", throwIfNotFound: true);
-        m_gameplay_Interact = m_gameplay.FindAction("Interact", throwIfNotFound: true);
+        m_gameplay_Spellcast = m_gameplay.FindAction("Spellcast", throwIfNotFound: true);
         m_gameplay_Click = m_gameplay.FindAction("Click", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
@@ -313,7 +313,7 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
     private List<IGameplayActions> m_GameplayActionsCallbackInterfaces = new List<IGameplayActions>();
     private readonly InputAction m_gameplay_Pause;
     private readonly InputAction m_gameplay_Movement;
-    private readonly InputAction m_gameplay_Interact;
+    private readonly InputAction m_gameplay_Spellcast;
     private readonly InputAction m_gameplay_Click;
     public struct GameplayActions
     {
@@ -321,7 +321,7 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
         public GameplayActions(@GameInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Pause => m_Wrapper.m_gameplay_Pause;
         public InputAction @Movement => m_Wrapper.m_gameplay_Movement;
-        public InputAction @Interact => m_Wrapper.m_gameplay_Interact;
+        public InputAction @Spellcast => m_Wrapper.m_gameplay_Spellcast;
         public InputAction @Click => m_Wrapper.m_gameplay_Click;
         public InputActionMap Get() { return m_Wrapper.m_gameplay; }
         public void Enable() { Get().Enable(); }
@@ -338,9 +338,9 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
             @Movement.started += instance.OnMovement;
             @Movement.performed += instance.OnMovement;
             @Movement.canceled += instance.OnMovement;
-            @Interact.started += instance.OnInteract;
-            @Interact.performed += instance.OnInteract;
-            @Interact.canceled += instance.OnInteract;
+            @Spellcast.started += instance.OnSpellcast;
+            @Spellcast.performed += instance.OnSpellcast;
+            @Spellcast.canceled += instance.OnSpellcast;
             @Click.started += instance.OnClick;
             @Click.performed += instance.OnClick;
             @Click.canceled += instance.OnClick;
@@ -354,9 +354,9 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
             @Movement.started -= instance.OnMovement;
             @Movement.performed -= instance.OnMovement;
             @Movement.canceled -= instance.OnMovement;
-            @Interact.started -= instance.OnInteract;
-            @Interact.performed -= instance.OnInteract;
-            @Interact.canceled -= instance.OnInteract;
+            @Spellcast.started -= instance.OnSpellcast;
+            @Spellcast.performed -= instance.OnSpellcast;
+            @Spellcast.canceled -= instance.OnSpellcast;
             @Click.started -= instance.OnClick;
             @Click.performed -= instance.OnClick;
             @Click.canceled -= instance.OnClick;
@@ -427,7 +427,7 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
     {
         void OnPause(InputAction.CallbackContext context);
         void OnMovement(InputAction.CallbackContext context);
-        void OnInteract(InputAction.CallbackContext context);
+        void OnSpellcast(InputAction.CallbackContext context);
         void OnClick(InputAction.CallbackContext context);
     }
     public interface IUIActions
