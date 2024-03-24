@@ -9,6 +9,7 @@ public class button : Switchable
     [SerializeField] Sprite _onSprite;
 
     private SpriteRenderer _spriteRenderer;
+    private int _weights;
 
     // Start is called before the first frame update
     override public void Start()
@@ -25,13 +26,22 @@ public class button : Switchable
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        flip(true);
-        _spriteRenderer.sprite = _onSprite;
+        if (_weights == 0)
+        {
+            flip(true);
+            _spriteRenderer.sprite = _onSprite;
+        }
+        _weights += 1;
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        flip(false);
-        _spriteRenderer.sprite = _offSprite;
+        _weights -= 1;
+        if (_weights <= 0)
+        {
+            flip(false);
+            _weights = 0;
+            _spriteRenderer.sprite = _offSprite;
+        }
     }
 }
