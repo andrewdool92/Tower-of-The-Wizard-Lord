@@ -8,6 +8,7 @@ public class Flame : MonoBehaviour
 {
     [SerializeField] public bool onFire;
     private Animator _animator;
+    private ParticleSystem _sparks;
 
     public delegate void StateChange(bool state);
     public StateChange stateChange;
@@ -16,6 +17,7 @@ public class Flame : MonoBehaviour
     void Start()
     {
         _animator = GetComponent<Animator>();
+        _sparks = GetComponent<ParticleSystem>();
     }
 
     // Update is called once per frame
@@ -30,6 +32,8 @@ public class Flame : MonoBehaviour
         {
             _animator.SetBool("on_fire", true);
             onFire = true;
+            _sparks.Play();
+
             stateChange?.Invoke(true);
         }
     }

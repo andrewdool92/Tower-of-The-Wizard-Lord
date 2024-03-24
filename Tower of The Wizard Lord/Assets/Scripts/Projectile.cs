@@ -10,7 +10,9 @@ public class Projectile : MonoBehaviour
     [SerializeField] float powerScaler;
     [SerializeField] float maxVelocity;
     [SerializeField] float lifespan;
-    [SerializeField] float impactRadius;
+    [SerializeField] float[] impactRadius;
+    [SerializeField] Vector2[] impactOffset;
+    [SerializeField] float impactThreshold;
 
     private Animator _animator;
     private SpriteRenderer _sprite;
@@ -29,12 +31,12 @@ public class Projectile : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _sprite = GetComponent<SpriteRenderer>();
-        _animator = GetComponent<Animator>();
+        _sprite = GetComponentInChildren<SpriteRenderer>();
+        _animator = GetComponentInChildren<Animator>();
         _projectileCollider = GetComponent<Collider2D>();
         _impactCollider = gameObject.AddComponent<CircleCollider2D>();
         _impactCollider.enabled = false;
-        _impactCollider.radius = impactRadius;
+        _impactCollider.radius = impactRadius[0];
 
         _sprite.enabled = false;
         _animator.enabled = false;
@@ -80,6 +82,13 @@ public class Projectile : MonoBehaviour
         }
     }
 
+    private void _updateImpactRadius()
+    {
+        int index = (_velocity > impactThreshold) ? 1 : 0;
+        _impactCollider.radius = impactRadius[index];
+        _animator.SetInteger("size_index", index);
+    }
+
     public void launch(Vector2 position, Vector2 direction, float power)
     {
         transform.up = direction;
@@ -88,12 +97,13 @@ public class Projectile : MonoBehaviour
         _projectileCollider.enabled = true;
         _sprite.enabled = true;
         _animator.enabled = true;
-        _animator.ResetTrigger("impact");
-        _animator.SetTrigger("launch");
 
         _timer = lifespan;
         _velocity = Mathf.Clamp(power * Mathf.Pow(speedModifier, powerScaler), 0, maxVelocity);
+        _updateImpactRadius();
 
+        _animator.ResetTrigger("impact");
+        _animator.SetTrigger("launch");
         Debug.Log($"velocity: {_velocity}\npower: {power}");
 
         _onUpdate = () =>
@@ -107,7 +117,7 @@ public class Projectile : MonoBehaviour
 
         _collision = (collision) =>
         {
-            if (collision.gameObject.CompareTag("wall"))
+            if (collision.gameObject.CompareTag("blocker"))
             {
                 _triggerImpact();
             }

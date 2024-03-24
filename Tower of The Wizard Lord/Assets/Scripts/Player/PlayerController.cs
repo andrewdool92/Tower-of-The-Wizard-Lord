@@ -45,7 +45,7 @@ public class PlayerController : MonoBehaviour
         inputReader.SpellcastEvent += handleSpellcast;
         inputReader.SpellcastCancelledEvent += handleSpellcastCancelled;
 
-        _spell = Instantiate(defaultSpell, this.transform);
+        _spell = Instantiate(defaultSpell);
         _spellParticles = Instantiate(_spellParticles, this.transform);
         _spellAura = Instantiate(_spellAura, this.transform);
 
