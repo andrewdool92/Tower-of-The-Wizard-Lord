@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 405170896363669887}
   m_Layer: 0
   m_Name: Door_front
-  m_TagString: Untagged
+  m_TagString: wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -134,6 +134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9f155a411e977f4fbc3573f7ef9bb88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controllers: []
   start_open: 0
   topSprites:
   - {fileID: 1999185471, guid: d5e18f7ddf93c4f419d1b5d94adcb17c, type: 3}

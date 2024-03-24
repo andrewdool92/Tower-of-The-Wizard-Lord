@@ -9,9 +9,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private InputReader inputReader;
     [SerializeField] private float acceleration;
     [SerializeField] private float topSpeed;
+
     [SerializeField] private float spellCooldown;
     [SerializeField] private Spell defaultSpell;
     private Spell _spell;
+    
+    [SerializeField] ParticleSystem _spellParticles;
+    [SerializeField] ParticleSystem _spellAura;
+    private bool _particlesActive;
+    private bool _auraActive;
 
     private Vector2 _moveDirection;
     private Vector2 _facingDirection;
@@ -39,7 +45,13 @@ public class PlayerController : MonoBehaviour
         inputReader.SpellcastEvent += handleSpellcast;
         inputReader.SpellcastCancelledEvent += handleSpellcastCancelled;
 
-        _spell = Instantiate(defaultSpell);
+        _spell = Instantiate(defaultSpell, this.transform);
+        _spellParticles = Instantiate(_spellParticles, this.transform);
+        _spellAura = Instantiate(_spellAura, this.transform);
+
+        _particlesActive = false;
+        _auraActive = false;
+
         _facingDirection = Vector2.down;
     }
 
@@ -79,8 +91,8 @@ public class PlayerController : MonoBehaviour
     void handleSpellcastCancelled()
     {
         _animator.SetBool("Casting", false);
-        
-        if (_timer < 0.2)
+
+        if (_timer < 0.08)
         {
             _move = mobile;
             _action = noAction;
@@ -89,9 +101,19 @@ public class PlayerController : MonoBehaviour
         {
             _action = releaseSpell;
             _move = noAction;
-            _spell.activate(transform.position, _facingDirection);
+            _body.AddForce(_spell.activate(transform.position, _facingDirection, _timer));
         }
-        
+
+        if (_particlesActive)
+        {
+            _spellParticles.Stop();
+            _particlesActive = false;
+        }
+        if (_auraActive)
+        {
+            _spellAura.Stop();
+            _auraActive = false;
+        }
         _timer = 0;
     }
 
@@ -99,7 +121,7 @@ public class PlayerController : MonoBehaviour
     {
         if (_moveDirection != Vector2.zero)
         {
-            updateFacing();
+            _facingDirection = _moveDirection;
             updateAnimatorVector();
             _animator.SetBool("Running", true);
             
@@ -118,7 +140,7 @@ public class PlayerController : MonoBehaviour
     {
         if (_moveDirection != Vector2.zero)
         {
-            updateFacing();
+            _facingDirection = _moveDirection;
             updateAnimatorVector();
         }
     }
@@ -133,6 +155,17 @@ public class PlayerController : MonoBehaviour
     {
         _timer += Time.deltaTime;
         _animator.SetFloat("HoldTime", _timer);
+
+        if (_timer > 0.3 && !_auraActive)
+        {
+            _auraActive = true;
+            _spellAura.Play();
+        }
+        if (_timer > 1 && !_particlesActive)
+        {
+            _particlesActive = true;
+            _spellParticles.Play();
+        }
     }
 
     private void releaseSpell()
@@ -149,26 +182,6 @@ public class PlayerController : MonoBehaviour
     private void noAction()
     {
 
-    }
-
-    private void updateFacing()
-    {
-        if ( _moveDirection.y < 0)
-        {
-            _facingDirection = Vector2.down;
-        }
-        else if ( _moveDirection.x < 0)
-        {
-            _facingDirection = Vector2.left;
-        }
-        else if ( _moveDirection.x > 0)
-        {
-            _facingDirection = Vector2.right;
-        } 
-        else
-        {
-            _facingDirection = Vector2.up;
-        }
     }
 }
 

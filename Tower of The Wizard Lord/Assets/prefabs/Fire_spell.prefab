@@ -9,11 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4723856054201780005}
+  - component: {fileID: 4723856054201780011}
   - component: {fileID: 4723856054201780007}
   - component: {fileID: 4723856054201780004}
   - component: {fileID: -5369612930468458175}
   - component: {fileID: 5482386748343678247}
-  - component: {fileID: 4723856054201780011}
   m_Layer: 7
   m_Name: Fire_spell
   m_TagString: fire
@@ -29,13 +29,37 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4723856054201780001}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.92, y: -0.36, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4723856054201780011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4723856054201780001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a86f4c9b9ab705a48a09b6976e3b2a38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeTime: 0.5
+  cardinalDirectionLock: 1
+  colliderSizes:
+  - {x: 0.8, y: 1}
+  - {x: 1.123351, y: 2.161556}
+  offsets:
+  - 1
+  - 1.5
+  chargeSpeed: 2
+  projectile: {fileID: 1140527346830841621, guid: 4589781a4f7bd7643a8096eec235ff2b, type: 3}
+  projectileChargeThreshold: 2
+  recoilModifier: 50
 --- !u!212 &4723856054201780007
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -95,7 +119,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4723856054201780001}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -156,17 +180,3 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &4723856054201780011
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4723856054201780001}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a86f4c9b9ab705a48a09b6976e3b2a38, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  offset: 1
-  activeTime: 1
