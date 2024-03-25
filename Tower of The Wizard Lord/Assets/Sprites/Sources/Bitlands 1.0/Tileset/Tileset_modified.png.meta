@@ -105,7 +105,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Tileset_modified_4
+      name: pit_corner_NW
       rect:
         serializedVersion: 2
         x: 80
@@ -126,7 +126,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tileset_modified_5
+      name: pit_edge_N
       rect:
         serializedVersion: 2
         x: 96
@@ -147,28 +147,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tileset_modified_6
-      rect:
-        serializedVersion: 2
-        x: 112
-        y: 144
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9ec9fdad243106141966a7d629efcdac
-      internalID: 1051802208
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Tileset_modified_7
+      name: pit_corner_NE
       rect:
         serializedVersion: 2
         x: 128
@@ -189,7 +168,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tileset_modified_11
+      name: narrow_top
       rect:
         serializedVersion: 2
         x: 224
@@ -210,7 +189,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tileset_modified_24
+      name: pit_edge_W
       rect:
         serializedVersion: 2
         x: 80
@@ -231,7 +210,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tileset_modified_27
+      name: pit_edge_E
       rect:
         serializedVersion: 2
         x: 128
@@ -252,7 +231,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tileset_modified_31
+      name: narrow_up
       rect:
         serializedVersion: 2
         x: 224
@@ -273,49 +252,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tileset_modified_44
-      rect:
-        serializedVersion: 2
-        x: 80
-        y: 112
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3cd61bcc6e4fd5743a0ac817fb4e5fae
-      internalID: -778947479
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Tileset_modified_47
-      rect:
-        serializedVersion: 2
-        x: 128
-        y: 112
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 08e0382a60ae4da4aa591c3cff845750
-      internalID: -410944533
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Tileset_modified_48
+      name: narrow_side
       rect:
         serializedVersion: 2
         x: 160
@@ -336,7 +273,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tileset_modified_49
+      name: narrow_right
       rect:
         serializedVersion: 2
         x: 176
@@ -357,7 +294,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tileset_modified_52
+      name: narrow_bottom
       rect:
         serializedVersion: 2
         x: 224
@@ -378,7 +315,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tileset_modified_66
+      name: pit_corner_SW
       rect:
         serializedVersion: 2
         x: 80
@@ -399,7 +336,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tileset_modified_67
+      name: pit_edge_S
       rect:
         serializedVersion: 2
         x: 96
@@ -420,28 +357,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tileset_modified_68
-      rect:
-        serializedVersion: 2
-        x: 112
-        y: 96
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 43ba3cff94c91c847bfd1bc3708da6e2
-      internalID: 1279503649
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Tileset_modified_69
+      name: pit_corner_SE
       rect:
         serializedVersion: 2
         x: 128
@@ -764,7 +680,7 @@ TextureImporter:
         width: 32
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -772,6 +688,27 @@ TextureImporter:
       bones: []
       spriteID: 3184378a90c8a184ba172de0a170570f
       internalID: 674084339
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: narrow_left
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 112
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: efb620fe7ff86534497be8825cb4313c
+      internalID: -811275664
       vertices: []
       indices: 
       edges: []
@@ -799,7 +736,6 @@ TextureImporter:
       Tileset_modified_107: 241593065
       Tileset_modified_108: -1839777761
       Tileset_modified_109: 773337546
-      Tileset_modified_11: -1115651282
       Tileset_modified_110: 1933600476
       Tileset_modified_111: 961389286
       Tileset_modified_112: -504387571
@@ -832,13 +768,10 @@ TextureImporter:
       Tileset_modified_21: 979892507
       Tileset_modified_22: 3453559
       Tileset_modified_23: 1735947585
-      Tileset_modified_24: -1077048422
-      Tileset_modified_27: 1503961384
       Tileset_modified_28: 545627418
       Tileset_modified_29: 1513128413
       Tileset_modified_3: -204718037
       Tileset_modified_30: -1643601991
-      Tileset_modified_31: 694040542
       Tileset_modified_32: -1926396575
       Tileset_modified_33: 1187472605
       Tileset_modified_34: 720597749
@@ -847,7 +780,6 @@ TextureImporter:
       Tileset_modified_37: 1477741405
       Tileset_modified_38: 8124619
       Tileset_modified_39: -1759598570
-      Tileset_modified_4: 144186275
       Tileset_modified_40: -1622771986
       Tileset_modified_41: -939833805
       Tileset_modified_42: 1149892700
@@ -856,12 +788,8 @@ TextureImporter:
       Tileset_modified_45: 1588493976
       Tileset_modified_46: -929397997
       Tileset_modified_47: -410944533
-      Tileset_modified_48: -1284941445
-      Tileset_modified_49: 630992918
-      Tileset_modified_5: -1330060706
       Tileset_modified_50: 1487045527
       Tileset_modified_51: -361319111
-      Tileset_modified_52: 1703607955
       Tileset_modified_53: -1478354768
       Tileset_modified_54: 365435699
       Tileset_modified_55: -438561699
@@ -876,11 +804,7 @@ TextureImporter:
       Tileset_modified_63: -219531081
       Tileset_modified_64: 1109381470
       Tileset_modified_65: 968096512
-      Tileset_modified_66: 1670018003
-      Tileset_modified_67: 579529267
       Tileset_modified_68: 1279503649
-      Tileset_modified_69: -310803752
-      Tileset_modified_7: 423718326
       Tileset_modified_70: -118930231
       Tileset_modified_71: 439372879
       Tileset_modified_72: 338055201
@@ -918,7 +842,21 @@ TextureImporter:
       door_frame_top: 1042835576
       door_open_bottom: 2056390763
       door_open_top: 1999185471
+      narrow_bottom: 1703607955
+      narrow_left: -811275664
+      narrow_right: 630992918
+      narrow_side: -1284941445
+      narrow_top: -1115651282
+      narrow_up: 694040542
       pillar_narrow: -487492590
+      pit_corner_NE: 423718326
+      pit_corner_NW: 144186275
+      pit_corner_SE: -310803752
+      pit_corner_SW: 1670018003
+      pit_edge_E: 1503961384
+      pit_edge_N: -1330060706
+      pit_edge_S: 579529267
+      pit_edge_W: -1077048422
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
