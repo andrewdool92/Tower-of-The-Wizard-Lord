@@ -57,6 +57,9 @@ MonoBehaviour:
   impactOffset:
   - {x: 0, y: 0}
   - {x: 0, y: -1}
+  impactFX:
+  - {fileID: 8300000, guid: 9665f2113f52cca4c9897648bf0c7252, type: 3}
+  - {fileID: 8300000, guid: 53d25f727c0f7074eb04a096bc3d00e7, type: 3}
   impactThreshold: 13
 --- !u!58 &4488209800664558571
 CircleCollider2D:

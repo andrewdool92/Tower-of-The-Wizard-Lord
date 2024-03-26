@@ -19,6 +19,8 @@ public class Spell : MonoBehaviour
     private Collider2D _activeCollider;
     private Animator _animator;
 
+    [SerializeField] AudioClip[] audioFX;
+
     private delegate void update();
     private update onUpdate;
 
@@ -71,6 +73,11 @@ public class Spell : MonoBehaviour
         _activeCollider.enabled = true;
         _animator.SetFloat ("Power", power);
         _animator.SetTrigger("Activate");
+
+        if (audioFX[powerIndex] != null)
+        {
+            AudioManager.Instance.playSoundClip(audioFX[powerIndex], transform, 0.5f);
+        }
 
         //Debug.Log($"Casting spell with power {power}");
 

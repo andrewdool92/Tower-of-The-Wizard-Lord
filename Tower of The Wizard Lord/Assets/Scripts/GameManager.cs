@@ -6,20 +6,31 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance;
+    private static GameManager _Instance;
+    public static GameManager instance
+    {
+        get
+        {
+            if (_Instance == null)
+            {
+                _Instance = new GameObject().AddComponent<GameManager>();
+                _Instance.name = _Instance.GetType().ToString();
+                DontDestroyOnLoad(_Instance.gameObject);
+            }
+            return _Instance;
+        }
+    }
+
     public GameState state;
 
-    [SerializeField] private InputReader inputReader;
-    [SerializeField] private GameObject ui;
+    public InputReader inputReader { get; private set; }
+    private GameObject ui;
 
     public static event Action<GameState> OnGameStateChanged;
 
     void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
+        inputReader = ScriptableObject.CreateInstance<InputReader>();
     }
 
     private void Start()

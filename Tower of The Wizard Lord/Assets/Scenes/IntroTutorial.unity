@@ -229,29 +229,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 312976220}
-  - component: {fileID: 312976219}
   m_Layer: 0
   m_Name: LevelManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &312976219
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 312976218}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f43dce94dea34374880398f6878a6e34, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  state: 0
-  inputReader: {fileID: 11400000, guid: da0f7b619aff7d84d86257e5247c76b0, type: 2}
-  ui: {fileID: 61101309}
+  m_IsActive: 0
 --- !u!4 &312976220
 Transform:
   m_ObjectHideFlags: 0
@@ -27467,6 +27451,10 @@ PrefabInstance:
     - target: {fileID: 7142273420957319033, guid: aaa8df37da9544948b3d805015e40b8e, type: 3}
       propertyPath: m_Layer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7142273420957319033, guid: aaa8df37da9544948b3d805015e40b8e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7142273420957319034, guid: aaa8df37da9544948b3d805015e40b8e, type: 3}
       propertyPath: m_RootOrder

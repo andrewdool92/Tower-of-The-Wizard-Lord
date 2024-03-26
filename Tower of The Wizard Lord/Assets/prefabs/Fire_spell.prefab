@@ -60,6 +60,9 @@ MonoBehaviour:
   projectile: {fileID: 1140527346830841621, guid: 4589781a4f7bd7643a8096eec235ff2b, type: 3}
   projectileChargeThreshold: 2
   recoilModifier: 50
+  audioFX:
+  - {fileID: 8300000, guid: 15093dc7647a5e04e913dab03b545b0d, type: 3}
+  - {fileID: 8300000, guid: 92bfd9747a205154897f73c96bf3aacb, type: 3}
 --- !u!212 &4723856054201780007
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private InputReader inputReader;
+    private InputReader _inputReader;
     [SerializeField] private float acceleration;
     [SerializeField] private float topSpeed;
 
@@ -41,9 +41,10 @@ public class PlayerController : MonoBehaviour
         _move = mobile;
         _action = noAction;
 
-        inputReader.MoveEvent += handleMove;
-        inputReader.SpellcastEvent += handleSpellcast;
-        inputReader.SpellcastCancelledEvent += handleSpellcastCancelled;
+        _inputReader = GameManager.instance.inputReader;
+        _inputReader.MoveEvent += handleMove;
+        _inputReader.SpellcastEvent += handleSpellcast;
+        _inputReader.SpellcastCancelledEvent += handleSpellcastCancelled;
 
         _spell = Instantiate(defaultSpell);
         _spellParticles = Instantiate(_spellParticles, this.transform);
@@ -57,9 +58,9 @@ public class PlayerController : MonoBehaviour
 
     private void OnDestroy()
     {
-        inputReader.MoveEvent -= handleMove;
-        inputReader.SpellcastEvent -= handleSpellcast;
-        inputReader.SpellcastCancelledEvent -= handleSpellcastCancelled;
+        _inputReader.MoveEvent -= handleMove;
+        _inputReader.SpellcastEvent -= handleSpellcast;
+        _inputReader.SpellcastCancelledEvent -= handleSpellcastCancelled;
     }
 
     // Update is called once per frame

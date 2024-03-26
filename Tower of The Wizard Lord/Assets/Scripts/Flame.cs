@@ -7,6 +7,7 @@ using UnityEngine;
 public class Flame : MonoBehaviour
 {
     [SerializeField] public bool onFire;
+    [SerializeField] private AudioClip igniteAudio;
     private Animator _animator;
     private ParticleSystem _sparks;
 

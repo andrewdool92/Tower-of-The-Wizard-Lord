@@ -12,12 +12,15 @@ public class Projectile : MonoBehaviour
     [SerializeField] float lifespan;
     [SerializeField] float[] impactRadius;
     [SerializeField] Vector2[] impactOffset;
+    [SerializeField] AudioClip[] impactFX;
     [SerializeField] float impactThreshold;
 
     private Animator _animator;
     private SpriteRenderer _sprite;
     private Collider2D _projectileCollider;
     private CircleCollider2D _impactCollider;
+
+    private int _power;
 
     private float _timer;
     private float _velocity;
@@ -67,6 +70,12 @@ public class Projectile : MonoBehaviour
         _timer = 1;
         _projectileCollider.enabled = false;
         _impactCollider.enabled = true;
+
+        if (impactFX[_power] != null)
+        {
+            AudioManager.Instance.playSoundClip(impactFX[_power], transform, 0.5f);
+        }
+
         _onUpdate = _windDown;
 
         _collision = (collision) => { };
@@ -87,6 +96,7 @@ public class Projectile : MonoBehaviour
         int index = (_velocity > impactThreshold) ? 1 : 0;
         _impactCollider.radius = impactRadius[index];
         _animator.SetInteger("size_index", index);
+        _power = index;
     }
 
     public void launch(Vector2 position, Vector2 direction, float power)

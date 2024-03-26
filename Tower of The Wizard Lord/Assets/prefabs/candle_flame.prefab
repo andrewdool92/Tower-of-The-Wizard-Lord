@@ -171,6 +171,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onFire: 0
+  igniteAudio: {fileID: 8300000, guid: 3a8f4301925f6524aa5d43ed08fc8152, type: 3}
 --- !u!198 &-7352756530555720941
 ParticleSystem:
   m_ObjectHideFlags: 0
