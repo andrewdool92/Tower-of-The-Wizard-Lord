@@ -134,6 +134,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9f155a411e977f4fbc3573f7ef9bb88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _swtichOnAudioFX:
+  - {fileID: 8300000, guid: fc094bb29063b9247853d5a05da09b4d, type: 3}
+  - {fileID: 8300000, guid: 9bd7a655b160875489376391ca3aae51, type: 3}
+  _switchOffAudioFX:
+  - {fileID: 8300000, guid: 353570c80a05afa42a1254d8c6787d8b, type: 3}
+  - {fileID: 8300000, guid: 0d30fcab8b21fc14ca5e06081b8a36af, type: 3}
   controllers: []
   start_open: 0
   topSprites:

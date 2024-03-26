@@ -17,6 +17,9 @@ public class Switchable : MonoBehaviour
 {
     private bool _ready;
 
+    [SerializeField] private AudioClip[] _swtichOnAudioFX;
+    [SerializeField] private AudioClip[] _switchOffAudioFX;
+
     public virtual void Start()
     {
         _ready = false;
@@ -31,16 +34,6 @@ public class Switchable : MonoBehaviour
             toggles[controller.name] = controller._switchState;
             controller.OnFlip += toggleHandler;
         }
-        //for (int i = 0; i < controllers.Length; i++)
-        //{
-        //    toggles[i] = controllers[i]._switchState;
-            //handlers[i] = (state) =>
-            //{
-            //    toggles[i] = state;
-            //    updateToggleState();
-            //    Debug.Log($"Signal recieved from controller {i}");
-            //};
-            //controllers[i].OnFlip += toggleHandler;
     }
 
     public virtual void Update()
@@ -106,6 +99,7 @@ public class Switchable : MonoBehaviour
         if (_state != previous)
         {
             onStateChange(_state);
+            _playSwitchAudio(_state);
         }
     }
 
@@ -125,5 +119,15 @@ public class Switchable : MonoBehaviour
     public virtual void onStateChange(bool state)
     {
 
+    }
+
+    private void _playSwitchAudio(bool nextState)
+    {
+        AudioClip[] audioClips = nextState ? _swtichOnAudioFX : _switchOffAudioFX;
+        if (audioClips.Length != 0)
+        {
+            int rand = UnityEngine.Random.Range(0, audioClips.Length);
+            AudioManager.Instance.playSoundClip(audioClips[rand], transform, 0.5f);
+        }
     }
 }
