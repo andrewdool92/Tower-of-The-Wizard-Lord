@@ -43,12 +43,12 @@ public class PlayerController : MonoBehaviour
         _move = mobile;
         _action = noAction;
 
-        _inputReader = GameManager.instance.inputReader;
+        _inputReader = GameManager.Instance.inputReader;
         _inputReader.MoveEvent += handleMove;
         _inputReader.SpellcastEvent += handleSpellcast;
         _inputReader.SpellcastCancelledEvent += handleSpellcastCancelled;
 
-        _mana = GameManager.instance.playerMana;
+        _mana = GameManager.Instance.playerMana;
 
         _spell = Instantiate(defaultSpell);
         _spellParticles = Instantiate(_spellParticles, this.transform);
@@ -93,7 +93,7 @@ public class PlayerController : MonoBehaviour
         _animator.SetBool("Casting", true);
         _animator.SetFloat("HoldTime", _timer);
 
-        GameManager.instance.updateMana(ManaPhase.casting);
+        GameManager.Instance.updateMana(ManaPhase.casting);
     }
 
     void handleSpellcastCancelled()
@@ -113,7 +113,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log($"recoil: {recoil}");
             _body.AddForce(recoil);
         }
-        GameManager.instance.updateMana(ManaPhase.cancel);
+        GameManager.Instance.updateMana(ManaPhase.cancel);
 
         if (_particlesActive)
         {
@@ -179,7 +179,7 @@ public class PlayerController : MonoBehaviour
         }
         if (_spell.chargeThresholdReached(_timer))
         {
-            GameManager.instance.updateMana(ManaPhase.prime);
+            GameManager.Instance.updateMana(ManaPhase.prime);
         }
     }
 

@@ -78,10 +78,10 @@ public class Spell : MonoBehaviour
     {
         float power = chargeTime * chargeSpeed;
 
-        if (!GameManager.instance.playerMana.Primed)     // limit spell power when mana is not available
+        if (!GameManager.Instance.playerMana.Primed)     // limit spell power when mana is not available
         {
             power = Mathf.Clamp(power, 0, projectileChargeThreshold);
-            GameManager.instance.playerMana.Primed = false;
+            GameManager.Instance.playerMana.Primed = false;
         }
 
         int powerIndex = (int)Mathf.Clamp(Mathf.Floor(power), 0, offsets.Length - 1);   // Fit power index to available objects

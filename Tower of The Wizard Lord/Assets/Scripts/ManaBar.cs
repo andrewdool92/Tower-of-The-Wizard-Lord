@@ -14,7 +14,8 @@ public class ManaBar : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _playerMana = GameManager.instance.playerMana;
+        Debug.Log("Loading new Manabar");
+        _playerMana = GameManager.Instance.playerMana;
         int maxMana = _playerMana.MaxMana;
         int startingMana = _playerMana.Mana;
 
@@ -40,7 +41,12 @@ public class ManaBar : MonoBehaviour
 
         GameManager.ManaUpdateEvent += handleManaUpdate;
     }
-    
+
+    private void OnDestroy()
+    {
+        GameManager.ManaUpdateEvent -= handleManaUpdate;
+    }
+
     private void handleManaUpdate(ManaPhase phase)
     {
         switch (phase)
@@ -109,5 +115,14 @@ public class ManaBar : MonoBehaviour
             manaPipAnimators[_playerMana.Mana].SetTrigger("completeCharge");
             _playerMana.Mana += 1;
         }
+    }
+
+    private void takeDamage()
+    {
+        if (_playerMana.Mana > 0)
+        {
+            manaPipAnimators[_playerMana.Mana].SetTrigger("damage");
+        }
+        _playerMana.Mana -= 1;
     }
 }

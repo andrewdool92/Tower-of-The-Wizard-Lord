@@ -114,47 +114,47 @@ public class InputReader : ScriptableObject, GameInput.IGameplayActions, GameInp
 
     public void OnNavigate(InputAction.CallbackContext context)
     {
-        throw new NotImplementedException();
+
     }
 
     public void OnSubmit(InputAction.CallbackContext context)
     {
-        throw new NotImplementedException();
+
     }
 
     public void OnCancel(InputAction.CallbackContext context)
     {
-        throw new NotImplementedException();
+
     }
 
     public void OnPoint(InputAction.CallbackContext context)
     {
-        throw new NotImplementedException();
+
     }
 
     public void OnScrollWheel(InputAction.CallbackContext context)
     {
-        throw new NotImplementedException();
+
     }
 
     public void OnMiddleClick(InputAction.CallbackContext context)
     {
-        throw new NotImplementedException();
+
     }
 
     public void OnRightClick(InputAction.CallbackContext context)
     {
-        throw new NotImplementedException();
+
     }
 
     public void OnTrackedDevicePosition(InputAction.CallbackContext context)
     {
-        throw new NotImplementedException();
+
     }
 
     public void OnTrackedDeviceOrientation(InputAction.CallbackContext context)
     {
-        throw new NotImplementedException();
+        
     }
 }
 

@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     private static GameManager _Instance;
-    public static GameManager instance
+    public static GameManager Instance
     {
         get
         {
@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     private GameObject ui;
 
     public static event Action<GameState> OnGameStateChanged;
+    public static event Action OnGameOver;
 
     public ManaTracker playerMana = new ManaTracker(5, 5);
     public static event Action<ManaPhase> ManaUpdateEvent;
@@ -46,6 +47,7 @@ public class GameManager : MonoBehaviour
         inputReader.setGameplay();
     }
 
+
     public void updateGameState(GameState newState)
     {
         state = newState;
@@ -60,6 +62,12 @@ public class GameManager : MonoBehaviour
                 break;
             case GameState.restart:
                 handleRestart();
+                break;
+            case GameState.main:
+                handleMainMenu();
+                break;
+            case GameState.tutorial:
+                handleTutorial();
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
@@ -95,6 +103,27 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
+    private void handleMainMenu()
+    {
+        inputReader.setUI();
+        SceneManager.LoadScene("SplashScreen");
+    }
+
+    private void handleTutorial()
+    {
+        SceneManager.LoadScene("IntroTutorial");
+        inputReader.setGameplay();
+    }
+
+    private void checkGameOver()
+    {
+        if (playerMana.Mana < 0)
+        {
+            inputReader.setUI();
+            OnGameOver?.Invoke();
+        }
+    }
+
     public void updateMana(ManaPhase phase)
     {
         switch (phase)
@@ -116,6 +145,7 @@ public class GameManager : MonoBehaviour
                 ManaUpdateEvent?.Invoke(phase);
                 break;
         }
+        checkGameOver();
     }
 
 }
@@ -126,6 +156,7 @@ public enum GameState
     gameplay,
     pause,
     restart,
+    tutorial
 }
 
 public enum ManaPhase
@@ -135,5 +166,6 @@ public enum ManaPhase
     charging,
     full,
     cancel,
-    pickup
+    pickup,
+    damage
 }

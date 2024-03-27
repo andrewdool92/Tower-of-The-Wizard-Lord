@@ -35,7 +35,7 @@ public class pickup : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        GameManager.instance.updateMana(ManaPhase.pickup);
+        GameManager.Instance.updateMana(ManaPhase.pickup);
         AudioManager.Instance.playRandomClip(pickupSFX, transform, 0.5f);
 
         _collider.enabled = false;
