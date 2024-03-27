@@ -134,5 +134,6 @@ public enum ManaPhase
     prime,
     charging,
     full,
-    cancel
+    cancel,
+    pickup
 }

@@ -124,10 +124,11 @@ public class Switchable : MonoBehaviour
     private void _playSwitchAudio(bool nextState)
     {
         AudioClip[] audioClips = nextState ? _swtichOnAudioFX : _switchOffAudioFX;
-        if (audioClips.Length != 0)
-        {
-            int rand = UnityEngine.Random.Range(0, audioClips.Length);
-            AudioManager.Instance.playSoundClip(audioClips[rand], transform, 0.5f);
-        }
+        AudioManager.Instance.playRandomClip(audioClips, transform, 0.5f);
+        //        if (audioClips.Length != 0)
+        //        {
+        //            int rand = UnityEngine.Random.Range(0, audioClips.Length);
+        //            AudioManager.Instance.playSoundClip(audioClips[rand], transform, 0.5f);
+        //        }
     }
 }

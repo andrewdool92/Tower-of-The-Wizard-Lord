@@ -60,6 +60,10 @@ public class ManaBar : MonoBehaviour
             case ManaPhase.full:
                 fillPip();
                 break;
+            case ManaPhase.pickup:
+                startCharging();
+                fillPip();
+                break;
         }
     }
 
@@ -103,6 +107,7 @@ public class ManaBar : MonoBehaviour
         if (_playerMana.Mana < _playerMana.MaxMana)
         {
             manaPipAnimators[_playerMana.Mana].SetTrigger("completeCharge");
+            _playerMana.Mana += 1;
         }
     }
 }
