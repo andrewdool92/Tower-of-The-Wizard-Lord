@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -27,6 +29,9 @@ public class GameManager : MonoBehaviour
     private GameObject ui;
 
     public static event Action<GameState> OnGameStateChanged;
+
+    public ManaTracker playerMana = new ManaTracker(5, 5);
+    public static event Action<ManaPhase> ManaUpdateEvent;
 
     void Awake()
     {
@@ -89,6 +94,30 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
+
+    public void updateMana(ManaPhase phase)
+    {
+        switch (phase)
+        {
+            case ManaPhase.prime:
+                if (playerMana.Mana > 0)
+                {
+                    ManaUpdateEvent?.Invoke(phase);
+                    playerMana.Primed = true;
+                }
+                break;
+            case ManaPhase.charging:
+                if (playerMana.Mana < playerMana.MaxMana)
+                {
+                    ManaUpdateEvent?.Invoke(phase);
+                }
+                break;
+            default:
+                ManaUpdateEvent?.Invoke(phase);
+                break;
+        }
+    }
+
 }
 
 public enum GameState
@@ -97,4 +126,13 @@ public enum GameState
     gameplay,
     pause,
     restart,
+}
+
+public enum ManaPhase
+{
+    casting,
+    prime,
+    charging,
+    full,
+    cancel
 }

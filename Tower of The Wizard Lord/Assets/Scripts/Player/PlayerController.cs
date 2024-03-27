@@ -31,6 +31,8 @@ public class PlayerController : MonoBehaviour
     OnAction _action;
     private float _timer;
 
+    private ManaTracker _mana;
+
 
     // Start is called before the first frame update
     void Start()
@@ -45,6 +47,8 @@ public class PlayerController : MonoBehaviour
         _inputReader.MoveEvent += handleMove;
         _inputReader.SpellcastEvent += handleSpellcast;
         _inputReader.SpellcastCancelledEvent += handleSpellcastCancelled;
+
+        _mana = GameManager.instance.playerMana;
 
         _spell = Instantiate(defaultSpell);
         _spellParticles = Instantiate(_spellParticles, this.transform);
@@ -84,9 +88,12 @@ public class PlayerController : MonoBehaviour
         _timer = 0;
         _move = rooted;
         _action = chargingSpell;
+
         _animator.SetBool("Running", false);
         _animator.SetBool("Casting", true);
         _animator.SetFloat("HoldTime", _timer);
+
+        GameManager.instance.updateMana(ManaPhase.casting);
     }
 
     void handleSpellcastCancelled()
@@ -102,8 +109,11 @@ public class PlayerController : MonoBehaviour
         {
             _action = releaseSpell;
             _move = noAction;
-            _body.AddForce(_spell.activate(transform.position, _facingDirection, _timer));
+            Vector2 recoil = _spell.activate(transform.position, _facingDirection, _timer);
+            Debug.Log($"recoil: {recoil}");
+            _body.AddForce(recoil);
         }
+        GameManager.instance.updateMana(ManaPhase.cancel);
 
         if (_particlesActive)
         {
@@ -162,10 +172,14 @@ public class PlayerController : MonoBehaviour
             _auraActive = true;
             _spellAura.Play();
         }
-        if (_timer > 1 && !_particlesActive)
+        if (_timer > 1 && !_particlesActive && _mana.Primed)
         {
             _particlesActive = true;
             _spellParticles.Play();
+        }
+        if (_spell.chargeThresholdReached(_timer))
+        {
+            GameManager.instance.updateMana(ManaPhase.prime);
         }
     }
 

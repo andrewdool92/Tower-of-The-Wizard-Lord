@@ -6,9 +6,14 @@ public class Spell : MonoBehaviour
 {
     [SerializeField] float activeTime;
     [SerializeField] bool cardinalDirectionLock;
+
     [SerializeField] Vector2[] colliderSizes;
     [SerializeField] float[] offsets;
     [SerializeField] float chargeSpeed;
+
+    [SerializeField] ParticleSystem chargePaticles;
+    [SerializeField] ParticleSystem chageAura;
+
     [SerializeField] Projectile projectile;
     [SerializeField] int projectileChargeThreshold;
     [SerializeField] float recoilModifier;
@@ -58,11 +63,28 @@ public class Spell : MonoBehaviour
 
     void noActivity() { }
 
+    public float getChargePower(float chargeTime)
+    {
+        return chargeTime * chargeSpeed;
+    }
+
+    public bool chargeThresholdReached(float chargeTime)
+    {
+        return getChargePower(chargeTime) > projectileChargeThreshold;
+    }
+
 
     public Vector2 activate(Vector2 position, Vector2 direction, float chargeTime)
     {
         float power = chargeTime * chargeSpeed;
-        int powerIndex = (int)Mathf.Clamp(Mathf.Floor(power), 0, offsets.Length - 1);   // limits index by what spell powers actually exist
+
+        if (!GameManager.instance.playerMana.Primed)     // limit spell power when mana is not available
+        {
+            power = Mathf.Clamp(power, 0, projectileChargeThreshold);
+            GameManager.instance.playerMana.Primed = false;
+        }
+
+        int powerIndex = (int)Mathf.Clamp(Mathf.Floor(power), 0, offsets.Length - 1);   // Fit power index to available objects
         direction = cardinalDirectionLock ? toCardinal(direction) : direction;
 
         _transform.up = direction;
@@ -79,16 +101,15 @@ public class Spell : MonoBehaviour
             AudioManager.Instance.playSoundClip(audioFX[powerIndex], transform, 0.5f);
         }
 
-        //Debug.Log($"Casting spell with power {power}");
-
-        if (power >= projectileChargeThreshold && projectile != null)
+        if (power > projectileChargeThreshold && projectile != null)
         {
             projectile.launch(transform.position, direction, power);
         }
 
         onUpdate = advance;
 
-        return (power > 2) ? direction * -1 * power * recoilModifier : Vector2.zero;
+        return (power > projectileChargeThreshold) ? direction * -1 * power * recoilModifier : Vector2.zero;
+        // returns the recoil that can be applied to the caster
     }
 
     void advance()
