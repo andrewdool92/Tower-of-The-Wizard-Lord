@@ -21,12 +21,6 @@ public class Flame : MonoBehaviour
         _sparks = GetComponent<ParticleSystem>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void OnTriggerEnter2D(UnityEngine.Collider2D collision)
     {
         if ( !onFire && collision.gameObject.CompareTag("fire"))
@@ -36,6 +30,17 @@ public class Flame : MonoBehaviour
             _sparks.Play();
 
             stateChange?.Invoke(true);
+        }
+    }
+
+    public void setFlameState(bool onFire)
+    {
+        _animator.SetBool("on_fire", onFire);
+        this.onFire = onFire;
+        if (onFire != this.onFire)
+        {
+            _sparks.Play();
+            stateChange?.Invoke(onFire);
         }
     }
 }

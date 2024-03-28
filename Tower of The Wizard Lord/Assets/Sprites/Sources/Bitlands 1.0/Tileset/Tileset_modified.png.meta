@@ -504,7 +504,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tileset_modified_124
+      name: Door_right_frame_N
       rect:
         serializedVersion: 2
         x: 256
@@ -588,7 +588,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tileset_modified_130
+      name: Door_right_frame_S
       rect:
         serializedVersion: 2
         x: 256
@@ -701,7 +701,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -709,6 +709,90 @@ TextureImporter:
       bones: []
       spriteID: efb620fe7ff86534497be8825cb4313c
       internalID: -811275664
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: door_right_open_S
+      rect:
+        serializedVersion: 2
+        x: 325
+        y: 8
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae94fe869795397428180e1e447a89fb
+      internalID: 371977981
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: door_right_open_N
+      rect:
+        serializedVersion: 2
+        x: 325
+        y: 28
+        width: 16
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e143d7acd9e3ab34a9d54a5408d6b34a
+      internalID: -1992495487
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: door_right_closed_S
+      rect:
+        serializedVersion: 2
+        x: 357
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d6d884d1793f9b4e823b4f3a136bbf6
+      internalID: 392447401
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: door_right_closed_N
+      rect:
+        serializedVersion: 2
+        x: 357
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 357c13fab52a15d4885004b89c824172
+      internalID: 1507243565
       vertices: []
       indices: 
       edges: []
@@ -724,6 +808,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      Door_right_frame_N: -199772249
+      Door_right_frame_S: 759170251
       Tileset_modified_1: -1819904566
       Tileset_modified_10: 1936941402
       Tileset_modified_100: -733393590
@@ -750,12 +836,10 @@ TextureImporter:
       Tileset_modified_120: -1992174926
       Tileset_modified_121: -482906637
       Tileset_modified_123: 1344525763
-      Tileset_modified_124: -199772249
       Tileset_modified_125: -1226740768
       Tileset_modified_127: -1414452495
       Tileset_modified_129: 412928307
       Tileset_modified_13: -1224798237
-      Tileset_modified_130: 759170251
       Tileset_modified_131: 1556033778
       Tileset_modified_14: 554999021
       Tileset_modified_15: -1830888193
@@ -842,6 +926,10 @@ TextureImporter:
       door_frame_top: 1042835576
       door_open_bottom: 2056390763
       door_open_top: 1999185471
+      door_right_closed_N: 1507243565
+      door_right_closed_S: 392447401
+      door_right_open_N: -1992495487
+      door_right_open_S: 371977981
       narrow_bottom: 1703607955
       narrow_left: -811275664
       narrow_right: 630992918

@@ -34,6 +34,8 @@ public class GameManager : MonoBehaviour
     public ManaTracker playerMana = new ManaTracker(5, 5);
     public static event Action<ManaPhase> ManaUpdateEvent;
 
+    public static event Action<int> FloorUpdateEvent;
+
     void Awake()
     {
         inputReader = ScriptableObject.CreateInstance<InputReader>();
@@ -148,6 +150,11 @@ public class GameManager : MonoBehaviour
         checkGameOver();
     }
 
+    public void updateFloor(int direction)
+    {
+        GameManager.FloorUpdateEvent?.Invoke(direction);
+    }
+
 }
 
 public enum GameState
@@ -169,3 +176,4 @@ public enum ManaPhase
     pickup,
     damage
 }
+
