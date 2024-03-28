@@ -355,3 +355,5 @@ MonoBehaviour:
   topSpeed: 10
   spellCooldown: 0.5
   defaultSpell: {fileID: 4723856054201780011, guid: 9ffc03afff7740545ba1abf7c9aaf504, type: 3}
+  _spellParticles: {fileID: 5937300828340270036, guid: 2d0cfc6927611d54789edcdc339fc9b0, type: 3}
+  _spellAura: {fileID: 3667344619497879066, guid: 8e36e0412e8b84444a82a21a920e872b, type: 3}

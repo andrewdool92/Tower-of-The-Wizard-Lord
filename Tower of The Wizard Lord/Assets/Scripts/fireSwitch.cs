@@ -6,6 +6,7 @@ public class fireSwitch : Switchable
 {
 
     [SerializeField] Flame flameObject;
+    [SerializeField] bool startLit;
     private Flame _flame;
 
 
@@ -19,6 +20,7 @@ public class fireSwitch : Switchable
     public override void switchableSetup()
     {
         base.switchableSetup();
+        _flame.setFlameState(startLit);
         _switchState = _flame.onFire;
         _flame.stateChange = flip;
     }

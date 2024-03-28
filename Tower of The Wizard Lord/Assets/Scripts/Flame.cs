@@ -7,7 +7,9 @@ using UnityEngine;
 public class Flame : MonoBehaviour
 {
     [SerializeField] public bool onFire;
+    [SerializeField] private AudioClip igniteAudio;
     private Animator _animator;
+    private ParticleSystem _sparks;
 
     public delegate void StateChange(bool state);
     public StateChange stateChange;
@@ -16,12 +18,7 @@ public class Flame : MonoBehaviour
     void Start()
     {
         _animator = GetComponent<Animator>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        _sparks = GetComponent<ParticleSystem>();
     }
 
     private void OnTriggerEnter2D(UnityEngine.Collider2D collision)
@@ -30,7 +27,20 @@ public class Flame : MonoBehaviour
         {
             _animator.SetBool("on_fire", true);
             onFire = true;
+            _sparks.Play();
+
             stateChange?.Invoke(true);
+        }
+    }
+
+    public void setFlameState(bool onFire)
+    {
+        _animator.SetBool("on_fire", onFire);
+        this.onFire = onFire;
+        if (onFire != this.onFire)
+        {
+            _sparks.Play();
+            stateChange?.Invoke(onFire);
         }
     }
 }

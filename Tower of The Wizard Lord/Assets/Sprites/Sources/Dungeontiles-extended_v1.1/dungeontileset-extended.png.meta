@@ -1365,12 +1365,12 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dungeontileset-extended_162
+      name: stairs_landing_upper
       rect:
         serializedVersion: 2
         x: 176
         y: 944
-        width: 16
+        width: 48
         height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -1381,48 +1381,6 @@ TextureImporter:
       bones: []
       spriteID: 07e7ad9283314564c82d7efbc64e88bf
       internalID: -1924038792
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: dungeontileset-extended_163
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 944
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 19a9cc73d7ac35a44bec11cb6eff1b09
-      internalID: -698166174
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: dungeontileset-extended_164
-      rect:
-        serializedVersion: 2
-        x: 208
-        y: 944
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9ce33e2a96570a64f9e1d44018179ca1
-      internalID: 1967361302
       vertices: []
       indices: 
       edges: []
@@ -1743,12 +1701,12 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dungeontileset-extended_207
+      name: stairs_mid_2
       rect:
         serializedVersion: 2
         x: 176
         y: 928
-        width: 16
+        width: 48
         height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -1759,48 +1717,6 @@ TextureImporter:
       bones: []
       spriteID: f880b93273b5c23478679bfbf6959b40
       internalID: -724301976
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: dungeontileset-extended_208
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 928
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f02b4108c4a8ba0439ead93ed6e569c8
-      internalID: -40610563
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: dungeontileset-extended_209
-      rect:
-        serializedVersion: 2
-        x: 208
-        y: 928
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 055d054f2725cf84f8cc740fe0576b13
-      internalID: 1084823167
       vertices: []
       indices: 
       edges: []
@@ -2247,12 +2163,12 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dungeontileset-extended_260
+      name: stairs_mid_1
       rect:
         serializedVersion: 2
         x: 176
         y: 912
-        width: 16
+        width: 48
         height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -2263,48 +2179,6 @@ TextureImporter:
       bones: []
       spriteID: 601a35e4dfba76a458049784b4ca99c9
       internalID: -1388266079
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: dungeontileset-extended_261
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 912
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 51672614b693e6945864d8473cf68a5c
-      internalID: -1421950328
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: dungeontileset-extended_262
-      rect:
-        serializedVersion: 2
-        x: 208
-        y: 912
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c3a3e997191dd174990a0478ab2c7c52
-      internalID: -1928944934
       vertices: []
       indices: 
       edges: []
@@ -2646,12 +2520,12 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dungeontileset-extended_291
+      name: stairs_landing_lower
       rect:
         serializedVersion: 2
         x: 176
         y: 896
-        width: 16
+        width: 48
         height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -2662,48 +2536,6 @@ TextureImporter:
       bones: []
       spriteID: 2ca12cd820d7dc14d86f62189f422cf1
       internalID: -520324984
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: dungeontileset-extended_292
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 896
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3aec906ea31e4584fbb89755fa506fcb
-      internalID: 1104989441
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: dungeontileset-extended_293
-      rect:
-        serializedVersion: 2
-        x: 208
-        y: 896
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d5d360e29f1d79947be2a140293a7536
-      internalID: 505411609
       vertices: []
       indices: 
       edges: []
@@ -9071,6 +8903,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: stairs_full
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 896
+        width: 48
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe5cdb65f0571b54e97b69b753712a6e
+      internalID: 655507599
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -9086,7 +8939,6 @@ TextureImporter:
       button_blue_up: 778918117
       button_red_down: 1287145255
       button_red_up: -1490972430
-      dungeontileset-extended_0: -520279839
       dungeontileset-extended_10: 486238653
       dungeontileset-extended_100: -1155385306
       dungeontileset-extended_101: -2029585595
@@ -9149,7 +9001,6 @@ TextureImporter:
       dungeontileset-extended_16: 821056385
       dungeontileset-extended_160: -2091111891
       dungeontileset-extended_161: -1217321693
-      dungeontileset-extended_162: 1797028281
       dungeontileset-extended_163: -1924038792
       dungeontileset-extended_164: -698166174
       dungeontileset-extended_165: 1967361302
@@ -9192,7 +9043,6 @@ TextureImporter:
       dungeontileset-extended_204: -1350293088
       dungeontileset-extended_205: -248008132
       dungeontileset-extended_206: 2060167581
-      dungeontileset-extended_207: -2133979702
       dungeontileset-extended_208: -724301976
       dungeontileset-extended_209: -40610563
       dungeontileset-extended_21: 970549215
@@ -9246,7 +9096,6 @@ TextureImporter:
       dungeontileset-extended_258: 1571000435
       dungeontileset-extended_259: 627421925
       dungeontileset-extended_26: 1062873491
-      dungeontileset-extended_260: -278638560
       dungeontileset-extended_261: -1388266079
       dungeontileset-extended_262: -1421950328
       dungeontileset-extended_263: -1928944934
@@ -9278,7 +9127,6 @@ TextureImporter:
       dungeontileset-extended_289: -629766943
       dungeontileset-extended_29: 1235032817
       dungeontileset-extended_290: -1365956959
-      dungeontileset-extended_291: 987769206
       dungeontileset-extended_292: -520324984
       dungeontileset-extended_293: 1104989441
       dungeontileset-extended_294: 505411609
@@ -9833,7 +9681,12 @@ TextureImporter:
       spikes_4: -1821975034
       stairs_down_left: 1012436474
       stairs_down_right: 1165730304
+      stairs_full: -520279839
+      stairs_landing_lower: -520324984
+      stairs_landing_upper: -1924038792
       stairs_left: 1571000435
+      stairs_mid_1: -1388266079
+      stairs_mid_2: -724301976
       stairs_right: -629766943
       switch_left: -1101277847
       switch_right: -810006261

@@ -1,31 +1,58 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance;
+    private static GameManager _Instance;
+    public static GameManager Instance
+    {
+        get
+        {
+            if (_Instance == null)
+            {
+                _Instance = new GameObject().AddComponent<GameManager>();
+                _Instance.name = _Instance.GetType().ToString();
+                DontDestroyOnLoad(_Instance.gameObject);
+            }
+            return _Instance;
+        }
+    }
+
     public GameState state;
 
-    [SerializeField] private InputReader inputReader;
-    [SerializeField] private GameObject ui;
+    public InputReader inputReader { get; private set; }
+    private GameObject ui;
 
     public static event Action<GameState> OnGameStateChanged;
+    public static event Action OnGameOver;
+
+    public ManaTracker playerMana = new ManaTracker(5, 5);
+    public static event Action<ManaPhase> ManaUpdateEvent;
+    public static event Action PlayerDamageEvent;
+
+    public static event Action<int> FloorUpdateEvent;
+
+    public static event Action ContinueDialogueEvent;
 
     void Awake()
     {
-        instance = this;
+        inputReader = ScriptableObject.CreateInstance<InputReader>();
     }
 
     private void Start()
     {
         inputReader.PauseEvent += handlePauseInput;
         inputReader.ResumeEvent += handleResumeInput;
+        inputReader.continueDialogueEvent += handleContinueDialogue;
 
         inputReader.setGameplay();
     }
+
 
     public void updateGameState(GameState newState)
     {
@@ -41,6 +68,12 @@ public class GameManager : MonoBehaviour
                 break;
             case GameState.restart:
                 handleRestart();
+                break;
+            case GameState.main:
+                handleMainMenu();
+                break;
+            case GameState.tutorial:
+                handleTutorial();
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
@@ -73,7 +106,81 @@ public class GameManager : MonoBehaviour
 
     private void handleRestart()
     {
+        playerMana.reset();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    private void handleMainMenu()
+    {
+        inputReader.setUI();
+        SceneManager.LoadScene("SplashScreen");
+    }
+
+    private void handleTutorial()
+    {
+        playerMana.reset();
+        SceneManager.LoadScene("IntroTutorial");
+        inputReader.setGameplay();
+    }
+
+    private void checkGameOver()
+    {
+        if (playerMana.Mana < 0)
+        {
+            inputReader.setUI();
+            OnGameOver?.Invoke();
+        }
+    }
+
+    public void updateMana(ManaPhase phase)
+    {
+        switch (phase)
+        {
+            case ManaPhase.prime:
+                if (playerMana.Mana > 0)
+                {
+                    ManaUpdateEvent?.Invoke(phase);
+                    playerMana.Primed = true;
+                }
+                break;
+            case ManaPhase.charging:
+                if (playerMana.Mana < playerMana.MaxMana)
+                {
+                    ManaUpdateEvent?.Invoke(phase);
+                }
+                break;
+            case ManaPhase.damage:
+                ManaUpdateEvent?.Invoke(phase);
+                PlayerDamageEvent?.Invoke();        // needed to separate to deal with race condition on player barrier
+                break;
+            default:
+                ManaUpdateEvent?.Invoke(phase);
+                break;
+        }
+        Debug.Log($"PlayerMana: {playerMana.Mana}");
+        checkGameOver();
+    }
+
+    public void updateFloor(int direction)
+    {
+        GameManager.FloorUpdateEvent?.Invoke(direction);
+    }
+
+    public void enterDialogue()
+    {
+        inputReader.startDialogue();
+        Time.timeScale = 0;
+    }
+
+    public void endDialogue()
+    {
+        inputReader.endDialogue();
+        Time.timeScale = 1;
+    }
+
+    private void handleContinueDialogue()
+    {
+        ContinueDialogueEvent?.Invoke();
     }
 }
 
@@ -83,4 +190,17 @@ public enum GameState
     gameplay,
     pause,
     restart,
+    tutorial
 }
+
+public enum ManaPhase
+{
+    casting,
+    prime,
+    charging,
+    full,
+    cancel,
+    pickup,
+    damage
+}
+

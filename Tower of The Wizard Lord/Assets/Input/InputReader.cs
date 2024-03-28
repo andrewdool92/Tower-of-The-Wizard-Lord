@@ -28,7 +28,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [CreateAssetMenu(menuName = "InputReader")]
-public class InputReader : ScriptableObject, GameInput.IGameplayActions, GameInput.IUIActions
+public class InputReader : ScriptableObject, GameInput.IGameplayActions, GameInput.IUIActions, GameInput.IDialogueActions
 {
     private GameInput _gameInput;
 
@@ -42,6 +42,8 @@ public class InputReader : ScriptableObject, GameInput.IGameplayActions, GameInp
 
     public event Action PauseEvent;
     public event Action ResumeEvent;
+
+    public event Action continueDialogueEvent;
 
     private void OnEnable()
     {
@@ -64,6 +66,18 @@ public class InputReader : ScriptableObject, GameInput.IGameplayActions, GameInp
     {
         _gameInput.UI.Enable();
         _gameInput.gameplay.Disable();
+    }
+
+    public void startDialogue()
+    {
+        _gameInput.gameplay.Disable();
+        _gameInput.dialogue.Enable();
+    }
+
+    public void endDialogue()
+    {
+        _gameInput.dialogue.Disable();
+        _gameInput.gameplay.Enable();
     }
 
     public void OnMovement(InputAction.CallbackContext context)
@@ -112,5 +126,54 @@ public class InputReader : ScriptableObject, GameInput.IGameplayActions, GameInp
         }
     }
 
+    public void OnNavigate(InputAction.CallbackContext context)
+    {
+
+    }
+
+    public void OnSubmit(InputAction.CallbackContext context)
+    {
+
+    }
+
+    public void OnCancel(InputAction.CallbackContext context)
+    {
+
+    }
+
+    public void OnPoint(InputAction.CallbackContext context)
+    {
+
+    }
+
+    public void OnScrollWheel(InputAction.CallbackContext context)
+    {
+
+    }
+
+    public void OnMiddleClick(InputAction.CallbackContext context)
+    {
+
+    }
+
+    public void OnRightClick(InputAction.CallbackContext context)
+    {
+
+    }
+
+    public void OnTrackedDevicePosition(InputAction.CallbackContext context)
+    {
+
+    }
+
+    public void OnTrackedDeviceOrientation(InputAction.CallbackContext context)
+    {
+        
+    }
+
+    public void OnContinue(InputAction.CallbackContext context)
+    {
+        continueDialogueEvent?.Invoke();
+    }
 }
 

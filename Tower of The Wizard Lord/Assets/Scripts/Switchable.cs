@@ -17,10 +17,13 @@ public class Switchable : MonoBehaviour
 {
     private bool _ready;
 
+    [SerializeField] private AudioClip[] _swtichOnAudioFX;
+    [SerializeField] private AudioClip[] _switchOffAudioFX;
+
     public virtual void Start()
     {
         _ready = false;
-        toggles = new Dictionary<string, bool>();
+        toggles = new Dictionary<int, bool>();
         _switchState = false;
     }
 
@@ -28,19 +31,9 @@ public class Switchable : MonoBehaviour
     {
         foreach (Switchable controller in controllers)
         {
-            toggles[controller.name] = controller._switchState;
+            toggles[controller.GetInstanceID()] = controller._switchState;
             controller.OnFlip += toggleHandler;
         }
-        //for (int i = 0; i < controllers.Length; i++)
-        //{
-        //    toggles[i] = controllers[i]._switchState;
-            //handlers[i] = (state) =>
-            //{
-            //    toggles[i] = state;
-            //    updateToggleState();
-            //    Debug.Log($"Signal recieved from controller {i}");
-            //};
-            //controllers[i].OnFlip += toggleHandler;
     }
 
     public virtual void Update()
@@ -64,19 +57,19 @@ public class Switchable : MonoBehaviour
 
 
     // fields and methods for handling behaviours of a switch
-    public virtual event Action<bool, string> OnFlip;
+    public virtual event Action<bool, int> OnFlip;
 
     public bool _switchState { get; set; }
 
     public virtual void flip(bool state)
     {
-        OnFlip?.Invoke(state, this.name);
+        OnFlip?.Invoke(state, this.GetInstanceID());
     }
 
 
     // fields and methods for handling behaviours of an object controlled by a switch
     [SerializeField] Switchable[] controllers;
-    private Dictionary<string, bool> toggles;
+    private Dictionary<int, bool> toggles;
 
     private bool _state;
 
@@ -91,10 +84,9 @@ public class Switchable : MonoBehaviour
         }
     }
 
-    private void toggleHandler(bool state, string name)
+    private void toggleHandler(bool state, int id)
     {
-        toggles[name] = state;
-        Debug.Log($"signal recieved from {name}");
+        toggles[id] = state;
         updateToggleState();
     }
 
@@ -106,6 +98,7 @@ public class Switchable : MonoBehaviour
         if (_state != previous)
         {
             onStateChange(_state);
+            _playSwitchAudio(_state);
         }
     }
 
@@ -125,5 +118,16 @@ public class Switchable : MonoBehaviour
     public virtual void onStateChange(bool state)
     {
 
+    }
+
+    private void _playSwitchAudio(bool nextState)
+    {
+        AudioClip[] audioClips = nextState ? _swtichOnAudioFX : _switchOffAudioFX;
+        AudioManager.Instance.playRandomClip(audioClips, transform, 0.5f);
+        //        if (audioClips.Length != 0)
+        //        {
+        //            int rand = UnityEngine.Random.Range(0, audioClips.Length);
+        //            AudioManager.Instance.playSoundClip(audioClips[rand], transform, 0.5f);
+        //        }
     }
 }
