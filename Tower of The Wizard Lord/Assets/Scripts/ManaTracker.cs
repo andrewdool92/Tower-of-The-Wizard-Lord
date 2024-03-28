@@ -38,4 +38,9 @@ public class ManaTracker
         _mana = startingMana;
         _maxMana = maxMana;
     }
+
+    public void reset()
+    {
+        _mana = _maxMana;
+    }
 }

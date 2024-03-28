@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEditorInternal;
 using UnityEngine;
@@ -16,8 +17,13 @@ public class PlayerController : MonoBehaviour
     
     [SerializeField] ParticleSystem _spellParticles;
     [SerializeField] ParticleSystem _spellAura;
+    [SerializeField] Animator _barrierAnimator;
     private bool _particlesActive;
     private bool _auraActive;
+
+    private PitfallDropable _dropController;
+    private Collider2D _collider;
+    private float _fallTimer;
 
     private Vector2 _moveDirection;
     private Vector2 _facingDirection;
@@ -50,14 +56,23 @@ public class PlayerController : MonoBehaviour
 
         _mana = GameManager.Instance.playerMana;
 
+        _dropController = GetComponent<PitfallDropable>();
+        _dropController.onPitfall += handlePitfall;
+        _collider = GetComponent<Collider2D>();
+
         _spell = Instantiate(defaultSpell);
         _spellParticles = Instantiate(_spellParticles, this.transform);
         _spellAura = Instantiate(_spellAura, this.transform);
 
+        _barrierAnimator = Instantiate(_barrierAnimator, this.transform);
+        GameManager.PlayerDamageEvent += triggerBarrier;
+
         _particlesActive = false;
         _auraActive = false;
 
-        _facingDirection = Vector2.down;
+        _moveDirection = Vector2.up;
+        rooted();                       // set the player's initial facing
+        _moveDirection = Vector2.zero;
     }
 
     private void OnDestroy()
@@ -65,6 +80,8 @@ public class PlayerController : MonoBehaviour
         _inputReader.MoveEvent -= handleMove;
         _inputReader.SpellcastEvent -= handleSpellcast;
         _inputReader.SpellcastCancelledEvent -= handleSpellcastCancelled;
+        _dropController.onPitfall -= handlePitfall;
+        GameManager.PlayerDamageEvent -= triggerBarrier;
     }
 
     // Update is called once per frame
@@ -110,11 +127,26 @@ public class PlayerController : MonoBehaviour
             _action = releaseSpell;
             _move = noAction;
             Vector2 recoil = _spell.activate(transform.position, _facingDirection, _timer);
-            Debug.Log($"recoil: {recoil}");
             _body.AddForce(recoil);
         }
         GameManager.Instance.updateMana(ManaPhase.cancel);
 
+        stopPaticles();
+        _timer = 0;
+    }
+
+    public void interuptSpellcast()
+    {
+        _animator.SetFloat("HoldTime", 0f);
+        _animator.SetBool("Casting", false);
+        _move = mobile;
+        _action = noAction;
+
+        stopPaticles();
+    }
+
+    private void stopPaticles()
+    {
         if (_particlesActive)
         {
             _spellParticles.Stop();
@@ -125,7 +157,6 @@ public class PlayerController : MonoBehaviour
             _spellAura.Stop();
             _auraActive = false;
         }
-        _timer = 0;
     }
 
     void mobile()
@@ -197,6 +228,55 @@ public class PlayerController : MonoBehaviour
     private void noAction()
     {
 
+    }
+
+    public void disableControl()
+    {
+        interuptSpellcast();
+
+        _move = noAction;
+        _action = noAction;
+    }
+
+    public void resumeControl()
+    {
+        _move = mobile;
+        _action = noAction;
+    }
+
+    private void handlePitfall(float delay)
+    {
+        _collider.enabled = false;
+        _body.velocity = Vector3.zero;
+
+        disableControl();
+        _animator.Play("Base Layer.pitfall", 0, 0);
+        _fallTimer = delay;
+        _action = countdown;
+    }
+
+    private void countdown()
+    {
+        _fallTimer -= Time.deltaTime;
+        if (_fallTimer < 0)
+        {
+            GameManager.Instance.updateMana(ManaPhase.damage);
+            _collider.enabled = true;
+            GameManager.Instance.updateFloor(-1);
+            resumeControl();
+        }
+    }
+
+    private void triggerBarrier()
+    {
+        if (_mana.Mana > 0)
+        {
+            _barrierAnimator.SetTrigger("block");
+        }
+        else if (_mana.Mana == 0)
+        {
+            _barrierAnimator.SetTrigger("break");
+        }
     }
 }
 

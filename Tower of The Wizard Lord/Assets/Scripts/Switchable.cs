@@ -23,7 +23,7 @@ public class Switchable : MonoBehaviour
     public virtual void Start()
     {
         _ready = false;
-        toggles = new Dictionary<string, bool>();
+        toggles = new Dictionary<int, bool>();
         _switchState = false;
     }
 
@@ -31,7 +31,7 @@ public class Switchable : MonoBehaviour
     {
         foreach (Switchable controller in controllers)
         {
-            toggles[controller.name] = controller._switchState;
+            toggles[controller.GetInstanceID()] = controller._switchState;
             controller.OnFlip += toggleHandler;
         }
     }
@@ -57,19 +57,19 @@ public class Switchable : MonoBehaviour
 
 
     // fields and methods for handling behaviours of a switch
-    public virtual event Action<bool, string> OnFlip;
+    public virtual event Action<bool, int> OnFlip;
 
     public bool _switchState { get; set; }
 
     public virtual void flip(bool state)
     {
-        OnFlip?.Invoke(state, this.name);
+        OnFlip?.Invoke(state, this.GetInstanceID());
     }
 
 
     // fields and methods for handling behaviours of an object controlled by a switch
     [SerializeField] Switchable[] controllers;
-    private Dictionary<string, bool> toggles;
+    private Dictionary<int, bool> toggles;
 
     private bool _state;
 
@@ -84,10 +84,9 @@ public class Switchable : MonoBehaviour
         }
     }
 
-    private void toggleHandler(bool state, string name)
+    private void toggleHandler(bool state, int id)
     {
-        toggles[name] = state;
-        Debug.Log($"signal recieved from {name}");
+        toggles[id] = state;
         updateToggleState();
     }
 

@@ -10,11 +10,9 @@ public class SceneManagerScript : MonoBehaviour
     {
         GameState newState;
 
-        Debug.Log($"Called LoadScene with string: {scene}");
 
         if (scene == "IntroTutorial")
         {
-            Debug.Log("It did get here");
             newState = GameState.tutorial;
         }
         else if (scene == "SplashScreen")
@@ -29,8 +27,6 @@ public class SceneManagerScript : MonoBehaviour
         {
             throw new ArgumentOutOfRangeException(nameof(scene), scene, null);
         }
-
-        Debug.Log($"Next state: {newState}");
 
         GameManager.Instance.updateGameState(newState);
     }

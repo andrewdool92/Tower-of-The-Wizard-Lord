@@ -70,6 +70,9 @@ public class ManaBar : MonoBehaviour
                 startCharging();
                 fillPip();
                 break;
+            case ManaPhase.damage:
+                takeDamage();
+                break;
         }
     }
 
@@ -121,7 +124,7 @@ public class ManaBar : MonoBehaviour
     {
         if (_playerMana.Mana > 0)
         {
-            manaPipAnimators[_playerMana.Mana].SetTrigger("damage");
+            manaPipAnimators[_playerMana.Mana - 1].SetTrigger("damage");
         }
         _playerMana.Mana -= 1;
     }

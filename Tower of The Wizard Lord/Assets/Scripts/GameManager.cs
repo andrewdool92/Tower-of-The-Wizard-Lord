@@ -33,8 +33,11 @@ public class GameManager : MonoBehaviour
 
     public ManaTracker playerMana = new ManaTracker(5, 5);
     public static event Action<ManaPhase> ManaUpdateEvent;
+    public static event Action PlayerDamageEvent;
 
     public static event Action<int> FloorUpdateEvent;
+
+    public static event Action ContinueDialogueEvent;
 
     void Awake()
     {
@@ -45,6 +48,7 @@ public class GameManager : MonoBehaviour
     {
         inputReader.PauseEvent += handlePauseInput;
         inputReader.ResumeEvent += handleResumeInput;
+        inputReader.continueDialogueEvent += handleContinueDialogue;
 
         inputReader.setGameplay();
     }
@@ -102,6 +106,7 @@ public class GameManager : MonoBehaviour
 
     private void handleRestart()
     {
+        playerMana.reset();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
@@ -113,6 +118,7 @@ public class GameManager : MonoBehaviour
 
     private void handleTutorial()
     {
+        playerMana.reset();
         SceneManager.LoadScene("IntroTutorial");
         inputReader.setGameplay();
     }
@@ -143,10 +149,15 @@ public class GameManager : MonoBehaviour
                     ManaUpdateEvent?.Invoke(phase);
                 }
                 break;
+            case ManaPhase.damage:
+                ManaUpdateEvent?.Invoke(phase);
+                PlayerDamageEvent?.Invoke();        // needed to separate to deal with race condition on player barrier
+                break;
             default:
                 ManaUpdateEvent?.Invoke(phase);
                 break;
         }
+        Debug.Log($"PlayerMana: {playerMana.Mana}");
         checkGameOver();
     }
 
@@ -155,6 +166,22 @@ public class GameManager : MonoBehaviour
         GameManager.FloorUpdateEvent?.Invoke(direction);
     }
 
+    public void enterDialogue()
+    {
+        inputReader.startDialogue();
+        Time.timeScale = 0;
+    }
+
+    public void endDialogue()
+    {
+        inputReader.endDialogue();
+        Time.timeScale = 1;
+    }
+
+    private void handleContinueDialogue()
+    {
+        ContinueDialogueEvent?.Invoke();
+    }
 }
 
 public enum GameState

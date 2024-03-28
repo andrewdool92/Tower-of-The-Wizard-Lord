@@ -13,7 +13,17 @@ public class inGameUI : MonoBehaviour
     {
         this.gameObject.SetActive(activateOnStart);
 
-        GameManager.OnGameOver += () => this.gameObject.SetActive(activateOnGameOver);
+        GameManager.OnGameOver += handleGameOver;
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.OnGameOver -= handleGameOver;
+    }
+
+    private void handleGameOver()
+    {
+        gameObject.SetActive(activateOnGameOver);
     }
 
 }

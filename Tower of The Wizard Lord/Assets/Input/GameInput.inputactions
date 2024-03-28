@@ -723,6 +723,56 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "dialogue",
+            "id": "6efba2bb-8fad-4b56-8f55-166af3af407e",
+            "actions": [
+                {
+                    "name": "Continue",
+                    "type": "Button",
+                    "id": "85422ce4-2159-448b-8593-300b5caed2b3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "889d22e1-5b03-4379-8741-b260acea5406",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Continue",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1e662888-fbbc-4296-b32a-e6a7bdff23f8",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Continue",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b0ce146a-6638-44c9-b002-ea4b526407dd",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Continue",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []
