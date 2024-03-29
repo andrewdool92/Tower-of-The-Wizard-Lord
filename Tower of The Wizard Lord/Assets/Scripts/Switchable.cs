@@ -44,7 +44,6 @@ public class Switchable : MonoBehaviour
             {
                 switchableSetup();  // necessary to avoid race condition when relying on other entities
                 _ready = true;
-                Debug.Log($"Setup finished: {this.name}");
             }
             catch (NullReferenceException e)
             {

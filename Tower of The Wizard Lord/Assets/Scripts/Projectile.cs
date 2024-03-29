@@ -6,6 +6,9 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
+    [SerializeField] bool isPhysicsObject = false;     //  determines logic for how this projectile is simulated
+    [SerializeField] bool destroyOnImpact = false;     
+
     [SerializeField] float speedModifier;
     [SerializeField] float powerScaler;
     [SerializeField] float maxVelocity;
@@ -19,6 +22,7 @@ public class Projectile : MonoBehaviour
     private SpriteRenderer _sprite;
     private Collider2D _projectileCollider;
     private CircleCollider2D _impactCollider;
+    private Rigidbody2D _body;
 
     private int _power;
 
@@ -38,6 +42,7 @@ public class Projectile : MonoBehaviour
         _animator = GetComponentInChildren<Animator>();
         _projectileCollider = GetComponent<Collider2D>();
         _impactCollider = gameObject.AddComponent<CircleCollider2D>();
+        _body = GetComponent<Rigidbody2D>();
         _impactCollider.enabled = false;
         _impactCollider.radius = impactRadius[0];
 
@@ -101,7 +106,6 @@ public class Projectile : MonoBehaviour
 
     public void launch(Vector2 position, Vector2 direction, float power)
     {
-        transform.up = direction;
         transform.position = position;
 
         _projectileCollider.enabled = true;
@@ -114,23 +118,37 @@ public class Projectile : MonoBehaviour
 
         _animator.ResetTrigger("impact");
         _animator.SetTrigger("launch");
-        Debug.Log($"velocity: {_velocity}\npower: {power}");
 
-        _onUpdate = () =>
+        if (!isPhysicsObject)
         {
-            transform.position += transform.up * _velocity * Time.deltaTime;
-            if (_timer < 0)
+            transform.up = direction;
+            _onUpdate = () =>
             {
-                _triggerImpact();
-            }
-        };
+                transform.position += transform.up * _velocity * Time.deltaTime;
+                if (_timer < 0)
+                {
+                    _triggerImpact();
+                }
+            };
 
-        _collision = (collision) =>
-        {
-            if (collision.gameObject.CompareTag("blocker"))
+            _collision = (collision) =>
             {
-                _triggerImpact();
-            }
-        };
+                if (collision.gameObject.CompareTag("blocker"))
+                {
+                    _triggerImpact();
+                }
+            };
+        }
+        else
+        {
+            _body.velocity = direction.normalized * _velocity;
+            _onUpdate = () =>
+            {
+                if (_timer < 0)
+                {
+                    _triggerImpact();
+                }
+            };
+        }
     }
 }

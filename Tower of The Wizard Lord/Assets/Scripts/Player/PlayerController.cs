@@ -13,13 +13,19 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private float spellCooldown;
     [SerializeField] private Spell defaultSpell;
-    private Spell _spell;
+    [SerializeField] private Spell fireSpell;
+    [SerializeField] private Spell iceSpell;
+    private Dictionary<spellType, spellWrapper> _spells = new Dictionary<spellType, spellWrapper>();
+    private spellWrapper _spell;
     
-    [SerializeField] ParticleSystem _spellParticles;
-    [SerializeField] ParticleSystem _spellAura;
-    [SerializeField] Animator _barrierAnimator;
     private bool _particlesActive;
     private bool _auraActive;
+
+    [SerializeField] Animator _barrierAnimator;
+    [SerializeField] AudioClip[] _barrierBlockSound;
+    [SerializeField] AudioClip[] _barrierBreakSound;
+    [Range(0f, 1f)] public float barrierVolume = 1f;
+
 
     [SerializeField] AudioClip chargeFX;
     [SerializeField] float fadeinDuration;
@@ -67,9 +73,8 @@ public class PlayerController : MonoBehaviour
         _dropController.onPitfall += handlePitfall;
         _collider = GetComponent<Collider2D>();
 
-        _spell = Instantiate(defaultSpell);
-        _spellParticles = Instantiate(_spellParticles, this.transform);
-        _spellAura = Instantiate(_spellAura, this.transform);
+        setupSpells();
+        equipSpell(_spells[spellType.starting]);
 
         _barrierAnimator = Instantiate(_barrierAnimator, this.transform);
         GameManager.PlayerDamageEvent += triggerBarrier;
@@ -93,6 +98,54 @@ public class PlayerController : MonoBehaviour
         GameManager.PlayerDamageEvent -= triggerBarrier;
     }
 
+    private class spellWrapper
+    {
+        public Spell spell;
+        ParticleSystem _chargeParticles;
+        ParticleSystem _chargeAura;
+        public spellWrapper(Spell spell, Transform parent)
+        {
+            this.spell = spell;
+            _chargeParticles = Instantiate(this.spell.chargeParticles, parent);
+            _chargeAura = Instantiate(this.spell.chargeAura, parent);
+        }
+
+        public void toggleParticles(bool active)
+        {
+            switch (active)
+            {
+                case true: _chargeParticles.Play(); break;
+                case false: _chargeParticles.Stop(); break;
+            }
+        }
+
+        public void toggleAura(bool active)
+        {
+            switch (active)
+            {
+                case true: _chargeAura.Play(); break;
+                case false: _chargeAura.Stop(); break;
+            }
+        }
+
+        public Vector2 activate(Vector2 position, Vector2 direction, float chargeTime)
+        {
+            return spell.activate(position, direction, chargeTime);
+        }
+    }
+
+    private void setupSpells()
+    {
+        Debug.Log("setting up spells");
+        Spell spell = Instantiate(defaultSpell, this.transform);
+        Debug.Log(spell == null);
+        spellWrapper test = new spellWrapper(spell, this.transform);
+        _spells[spellType.starting] = new spellWrapper(Instantiate(defaultSpell, transform), this.transform);
+        _spells[spellType.fire] = new spellWrapper(fireSpell, this.transform);
+        _spells[spellType.ice] = new spellWrapper(iceSpell, this.transform);
+    }
+
+
     // Update is called once per frame
     private void Update()
     {
@@ -102,6 +155,12 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         _move();
+    }
+
+    void equipSpell(spellWrapper spell)
+    {
+        Debug.Log($"Equipping spell");
+        _spell = spell;
     }
 
     void handleMove(Vector2 input)
@@ -161,12 +220,12 @@ public class PlayerController : MonoBehaviour
     {
         if (_particlesActive)
         {
-            _spellParticles.Stop();
+            _spell.toggleParticles(false);
             _particlesActive = false;
         }
         if (_auraActive)
         {
-            _spellAura.Stop();
+            _spell.toggleAura(false);
             _auraActive = false;
         }
     }
@@ -214,14 +273,14 @@ public class PlayerController : MonoBehaviour
         if (_timer > 0.3 && !_auraActive)
         {
             _auraActive = true;
-            _spellAura.Play();
+            _spell.toggleAura(true);
         }
         if (_timer > 1 && !_particlesActive && _mana.Primed)
         {
             _particlesActive = true;
-            _spellParticles.Play();
+            _spell.toggleParticles(true);
         }
-        if (_spell.chargeThresholdReached(_timer))
+        if (_spell.spell.chargeThresholdReached(_timer))
         {
             GameManager.Instance.updateMana(ManaPhase.prime);
         }
@@ -285,9 +344,11 @@ public class PlayerController : MonoBehaviour
         if (_mana.Mana > 0)
         {
             _barrierAnimator.SetTrigger("block");
+            AudioManager.Instance.playRandomClip(_barrierBlockSound, transform, barrierVolume);
         }
         else if (_mana.Mana == 0)
         {
+            AudioManager.Instance.playRandomClip(_barrierBreakSound, transform, barrierVolume);
             _barrierAnimator.SetTrigger("break");
         }
     }
@@ -326,3 +387,10 @@ public class PlayerController : MonoBehaviour
     }
 }
 
+
+enum spellType
+{
+    starting,
+    fire,
+    ice
+}
