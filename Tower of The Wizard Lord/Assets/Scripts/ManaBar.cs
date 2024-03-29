@@ -7,6 +7,8 @@ public class ManaBar : MonoBehaviour
 {
     [SerializeField] GameObject manaPip;
     [SerializeField] float offset;
+    [SerializeField] AudioClip[] primeSound;
+    [Range(0f, 1f)] public float primeVolume = 1f;
 
     private Animator[] manaPipAnimators;
     private PipState[] manaPipStates;
@@ -97,6 +99,8 @@ public class ManaBar : MonoBehaviour
             pip.SetTrigger("prime");
             pip.ResetTrigger("completeCharge");
             _playerMana.Mana -= 1;
+
+            AudioManager.Instance.playRandomClip(primeSound, transform, primeVolume);
         }
     }
 

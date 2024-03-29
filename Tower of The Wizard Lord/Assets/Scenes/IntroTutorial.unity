@@ -2529,6 +2529,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   manaPip: {fileID: 2315835065668032974, guid: 5fb92e61123c1fb4e864b25e8b91bf44, type: 3}
   offset: 100
+  primeSound:
+  - {fileID: 8300000, guid: 19d5e90cfe47d49439c3e9cce421c437, type: 3}
+  primeVolume: 0.068
 --- !u!1 &896842480
 GameObject:
   m_ObjectHideFlags: 0
@@ -91992,6 +91995,10 @@ PrefabInstance:
     - target: {fileID: 7142273420957319034, guid: aaa8df37da9544948b3d805015e40b8e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7142273420957319035, guid: aaa8df37da9544948b3d805015e40b8e, type: 3}
+      propertyPath: chargeVolume
+      value: 0.324
       objectReference: {fileID: 0}
     - target: {fileID: 7142273420957319035, guid: aaa8df37da9544948b3d805015e40b8e, type: 3}
       propertyPath: _barrierAnimator
