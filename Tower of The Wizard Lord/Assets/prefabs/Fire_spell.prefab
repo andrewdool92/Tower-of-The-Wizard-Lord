@@ -57,6 +57,8 @@ MonoBehaviour:
   - 1
   - 1.5
   chargeSpeed: 2
+  chargePaticles: {fileID: 5937300828340270036, guid: 2d0cfc6927611d54789edcdc339fc9b0, type: 3}
+  chageAura: {fileID: 3667344619497879066, guid: 8e36e0412e8b84444a82a21a920e872b, type: 3}
   projectile: {fileID: 1140527346830841621, guid: 4589781a4f7bd7643a8096eec235ff2b, type: 3}
   projectileChargeThreshold: 2
   recoilModifier: 50

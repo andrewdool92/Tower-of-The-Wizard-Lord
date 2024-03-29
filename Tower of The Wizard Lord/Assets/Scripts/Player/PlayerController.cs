@@ -21,6 +21,13 @@ public class PlayerController : MonoBehaviour
     private bool _particlesActive;
     private bool _auraActive;
 
+    [SerializeField] AudioClip chargeFX;
+    [SerializeField] float fadeinDuration;
+    [Range(0f, 1f)] public float chargeVolume;
+    AudioSource chargeSound;
+    [SerializeField] float audioLoopPoint;  // the point at which the audio should loop back to the beginning
+    [SerializeField] float audioJumpPoint;  // the point to jump to when the audio should stop
+
     private PitfallDropable _dropController;
     private Collider2D _collider;
     private float _fallTimer;
@@ -70,6 +77,8 @@ public class PlayerController : MonoBehaviour
         _particlesActive = false;
         _auraActive = false;
 
+        chargeSound = AudioManager.Instance.createPersistentAudioSource(chargeFX, this.transform);
+
         _moveDirection = Vector2.up;
         rooted();                       // set the player's initial facing
         _moveDirection = Vector2.zero;
@@ -111,6 +120,7 @@ public class PlayerController : MonoBehaviour
         _animator.SetFloat("HoldTime", _timer);
 
         GameManager.Instance.updateMana(ManaPhase.casting);
+        startChargeFX();
     }
 
     void handleSpellcastCancelled()
@@ -131,6 +141,7 @@ public class PlayerController : MonoBehaviour
         }
         GameManager.Instance.updateMana(ManaPhase.cancel);
 
+        completeChargeFX();
         stopPaticles();
         _timer = 0;
     }
@@ -142,6 +153,7 @@ public class PlayerController : MonoBehaviour
         _move = mobile;
         _action = noAction;
 
+        cancelChargeFX();
         stopPaticles();
     }
 
@@ -197,6 +209,7 @@ public class PlayerController : MonoBehaviour
     {
         _timer += Time.deltaTime;
         _animator.SetFloat("HoldTime", _timer);
+        loopChargeFX();
 
         if (_timer > 0.3 && !_auraActive)
         {
@@ -276,6 +289,39 @@ public class PlayerController : MonoBehaviour
         else if (_mana.Mana == 0)
         {
             _barrierAnimator.SetTrigger("break");
+        }
+    }
+
+    private void startChargeFX()
+    {
+        chargeSound = AudioManager.Instance.createPersistentAudioSource(chargeFX, transform);
+        chargeSound.enabled = true;
+        AudioManager.Instance.fadeInAudio(chargeSound, fadeinDuration, chargeVolume);
+    }
+
+    private void loopChargeFX()
+    {
+        if (chargeSound != null && chargeSound.time > audioLoopPoint)
+        {
+            chargeSound.time = 0;
+        }
+    }
+
+    private void completeChargeFX()
+    {
+        if (chargeSound != null)
+        {
+            chargeSound.time = audioJumpPoint;
+            Destroy(chargeSound.gameObject, 1f);
+        }
+    }
+
+    private void cancelChargeFX()
+    {
+        if (chargeSound != null)
+        {
+            chargeSound.Stop();
+            Destroy(chargeSound.gameObject);
         }
     }
 }

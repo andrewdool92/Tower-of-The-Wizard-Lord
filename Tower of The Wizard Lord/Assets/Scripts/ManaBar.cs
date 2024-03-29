@@ -9,17 +9,18 @@ public class ManaBar : MonoBehaviour
     [SerializeField] float offset;
 
     private Animator[] manaPipAnimators;
+    private PipState[] manaPipStates;
     private ManaTracker _playerMana;
 
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("Loading new Manabar");
         _playerMana = GameManager.Instance.playerMana;
         int maxMana = _playerMana.MaxMana;
         int startingMana = _playerMana.Mana;
 
         manaPipAnimators = new Animator[maxMana];
+        manaPipStates = new PipState[maxMana];
 
         for (int i = 0; i < maxMana; i++)
         {
@@ -32,10 +33,12 @@ public class ManaBar : MonoBehaviour
             if (i <= startingMana - 1)
             {
                 manaPipAnimators[i].Play("Base Layer.charged", 0, Random.value);
+                manaPipStates[i] = PipState.full;
             }
             else
             {
                 manaPipAnimators[i].Play("Base Layer.empty", 0, Random.value);
+                manaPipStates[i] = PipState.empty;
             }
         }
 
@@ -80,7 +83,9 @@ public class ManaBar : MonoBehaviour
     {
         if (_playerMana.Mana > 0)
         {
-            manaPipAnimators[_playerMana.Mana - 1].SetBool("casting", true);
+            Animator pip = manaPipAnimators[_playerMana.Mana - 1];
+            pip.SetBool("casting", true);
+            pip.SetBool("charging", false);
         }
     }
 
@@ -88,7 +93,9 @@ public class ManaBar : MonoBehaviour
     {
         if (_playerMana.Mana > 0 && !_playerMana.Primed)
         {
-            manaPipAnimators[_playerMana.Mana - 1].SetTrigger("prime");
+            Animator pip = manaPipAnimators[_playerMana.Mana - 1];
+            pip.SetTrigger("prime");
+            pip.ResetTrigger("completeCharge");
             _playerMana.Mana -= 1;
         }
     }
@@ -124,8 +131,18 @@ public class ManaBar : MonoBehaviour
     {
         if (_playerMana.Mana > 0)
         {
-            manaPipAnimators[_playerMana.Mana - 1].SetTrigger("damage");
+            Animator pip = manaPipAnimators[_playerMana.Mana - 1];
+            pip.SetTrigger("damage");
+            pip.SetBool("charging", false);
         }
         _playerMana.Mana -= 1;
     }
+}
+
+public enum PipState
+{
+    full,
+    primed,
+    empty,
+    charging
 }
