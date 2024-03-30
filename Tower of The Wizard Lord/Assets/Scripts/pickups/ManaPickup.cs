@@ -18,6 +18,8 @@ public class ManaPickup : BasePickup
 
         GameManager.Instance.updateMana(ManaPhase.pickup);
         _animator.SetTrigger("pickup");
+        _timer = ReformationTime;
+        onUpdate = reform;
     }
 
     void reform()

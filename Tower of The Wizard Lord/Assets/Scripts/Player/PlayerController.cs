@@ -98,7 +98,7 @@ public class PlayerController : MonoBehaviour
         GameManager.PlayerDamageEvent -= triggerBarrier;
     }
 
-    private class spellWrapper
+    public class spellWrapper
     {
         public Spell spell;
         ParticleSystem _chargeParticles;
@@ -138,11 +138,9 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("setting up spells");
         Spell spell = Instantiate(defaultSpell, this.transform);
-        Debug.Log(spell == null);
-        spellWrapper test = new spellWrapper(spell, this.transform);
         _spells[spellType.starting] = new spellWrapper(Instantiate(defaultSpell, transform), this.transform);
-        _spells[spellType.fire] = new spellWrapper(fireSpell, this.transform);
-        _spells[spellType.ice] = new spellWrapper(iceSpell, this.transform);
+        _spells[spellType.fire] = new spellWrapper(Instantiate(fireSpell), this.transform);
+        _spells[spellType.ice] = new spellWrapper(Instantiate(iceSpell), this.transform);
     }
 
 
@@ -157,10 +155,14 @@ public class PlayerController : MonoBehaviour
         _move();
     }
 
-    void equipSpell(spellWrapper spell)
+    public void equipSpell(spellWrapper spell)
     {
-        Debug.Log($"Equipping spell");
         _spell = spell;
+    }
+
+    public void equipSpell(spellType spell)
+    {
+        _spell = _spells[spell];
     }
 
     void handleMove(Vector2 input)
@@ -388,7 +390,7 @@ public class PlayerController : MonoBehaviour
 }
 
 
-enum spellType
+public enum spellType
 {
     starting,
     fire,

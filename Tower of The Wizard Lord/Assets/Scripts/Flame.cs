@@ -26,11 +26,6 @@ public class Flame : MonoBehaviour
         if ( !onFire && collision.gameObject.CompareTag("fire"))
         {
             setFlameState(true);
-            //_animator.SetBool("on_fire", true);
-            //onFire = true;
-            //_sparks.Play();
-            //
-            //stateChange?.Invoke(true);
         }
         else if (onFire && collision.gameObject.CompareTag("ice"))
         {

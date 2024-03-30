@@ -32,16 +32,14 @@ public class Spell : MonoBehaviour
     private delegate void update();
     private update onUpdate;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         _transform = GetComponent<Transform>();
         _animator = GetComponent<Animator>();
         _setupColliders();
 
-        initializeProjectilePool();
-
         timer = 0;
+        initializeProjectilePool();
 
         onUpdate = noActivity;
     }

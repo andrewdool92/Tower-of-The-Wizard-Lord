@@ -157,7 +157,6 @@ public class GameManager : MonoBehaviour
                 ManaUpdateEvent?.Invoke(phase);
                 break;
         }
-        Debug.Log($"PlayerMana: {playerMana.Mana}");
         checkGameOver();
     }
 
