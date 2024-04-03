@@ -38,6 +38,7 @@ public class SpellPickup : BasePickup
 
         _aboveAura = Instantiate(spellAura, bookTransform);
         _aboveAura.transform.position += Vector3.up * 100;
+        _aboveAura.GetComponent<ParticleSystemRenderer>().sortingOrder = 0;
 
         var aboveMain = _aboveAura.main;
         aboveMain.prewarm = true;
