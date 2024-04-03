@@ -75,6 +75,7 @@ public class PlayerController : MonoBehaviour
 
         setupSpells();
         equipSpell(_spells[spellType.starting]);
+        GameManager.spellSelectEvent += equipSpell;
 
         _barrierAnimator = Instantiate(_barrierAnimator, this.transform);
         GameManager.PlayerDamageEvent += triggerBarrier;
@@ -95,6 +96,7 @@ public class PlayerController : MonoBehaviour
         _inputReader.SpellcastEvent -= handleSpellcast;
         _inputReader.SpellcastCancelledEvent -= handleSpellcastCancelled;
         _dropController.onPitfall -= handlePitfall;
+        GameManager.spellSelectEvent -= equipSpell;
         GameManager.PlayerDamageEvent -= triggerBarrier;
     }
 

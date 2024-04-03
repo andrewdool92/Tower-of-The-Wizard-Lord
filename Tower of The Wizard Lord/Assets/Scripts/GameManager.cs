@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
 
     public static event Action ContinueDialogueEvent;
 
-    public static event Action<Vector2> spellSelectEvent;
+    public static event Action<spellType> spellSelectEvent;
 
     void Awake()
     {
@@ -182,6 +182,14 @@ public class GameManager : MonoBehaviour
     private void handleContinueDialogue()
     {
         ContinueDialogueEvent?.Invoke();
+    }
+
+    public void updateSpell(spellType spell)
+    {
+        if (spell != spellType.starting)
+        {
+            spellSelectEvent?.Invoke(spell);
+        }
     }
 }
 

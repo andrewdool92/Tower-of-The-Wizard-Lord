@@ -62,13 +62,20 @@ public class spellSelector : MonoBehaviour
 
     private void equipSpellFromInput(Vector2 input)
     {
+        spellType spell = spellType.starting;
+
         if (input == Vector2.up && enabledSpells[spellType.fire])
         {
-            playerController.equipSpell(spellType.fire);
+            spell = spellType.fire;
         }
         else if (input == Vector2.down && enabledSpells[spellType.ice])
         {
-            playerController.equipSpell(spellType.ice);
+            spell = spellType.ice;
+        }
+
+        if (spell != spellType.starting)
+        {
+            GameManager.Instance.updateSpell(spell);
         }
     }
 }
