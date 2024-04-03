@@ -39,6 +39,8 @@ public class GameManager : MonoBehaviour
 
     public static event Action ContinueDialogueEvent;
 
+    public static event Action<Vector2> spellSelectEvent;
+
     void Awake()
     {
         inputReader = ScriptableObject.CreateInstance<InputReader>();

@@ -62,6 +62,15 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SpellSelect"",
+                    ""type"": ""Value"",
+                    ""id"": ""c26cff87-8066-4710-843a-5b8f2f5802ff"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -132,61 +141,6 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""ArrowKeys"",
-                    ""id"": ""309b2109-fb25-4398-881d-f54abf56d35f"",
-                    ""path"": ""2DVector"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""up"",
-                    ""id"": ""710b9651-98f1-4899-bd06-31bd35a5560d"",
-                    ""path"": ""<Keyboard>/upArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""85bd7764-80d6-476c-8e69-ad8315b0a0b1"",
-                    ""path"": ""<Keyboard>/downArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""left"",
-                    ""id"": ""f24f88a8-88ac-4006-9e8b-d2113105ee41"",
-                    ""path"": ""<Keyboard>/leftArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""e8d9e5e6-4e2e-4e95-8895-9642a9fdf406"",
-                    ""path"": ""<Keyboard>/rightArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
                     ""name"": """",
                     ""id"": ""50fb79cc-461b-4960-9e28-db642f4cb736"",
                     ""path"": ""<Keyboard>/space"",
@@ -207,6 +161,61 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
                     ""action"": ""Click"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""ArrowKeys"",
+                    ""id"": ""cca457f7-45d3-463e-a155-246ea67e3c75"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SpellSelect"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""2a7db198-6131-46db-a48a-2a5b22a1033f"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SpellSelect"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""3417af65-47ad-40b8-bfbf-13125cdde58f"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SpellSelect"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""22ba7ec4-aea0-4437-97bc-b1019d8b7eef"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SpellSelect"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""c9ab9005-a0e4-4f21-9505-bd09f53a6356"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SpellSelect"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         },
@@ -805,6 +814,7 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
         m_gameplay_Movement = m_gameplay.FindAction("Movement", throwIfNotFound: true);
         m_gameplay_Spellcast = m_gameplay.FindAction("Spellcast", throwIfNotFound: true);
         m_gameplay_Click = m_gameplay.FindAction("Click", throwIfNotFound: true);
+        m_gameplay_SpellSelect = m_gameplay.FindAction("SpellSelect", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -886,6 +896,7 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_gameplay_Movement;
     private readonly InputAction m_gameplay_Spellcast;
     private readonly InputAction m_gameplay_Click;
+    private readonly InputAction m_gameplay_SpellSelect;
     public struct GameplayActions
     {
         private @GameInput m_Wrapper;
@@ -894,6 +905,7 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_gameplay_Movement;
         public InputAction @Spellcast => m_Wrapper.m_gameplay_Spellcast;
         public InputAction @Click => m_Wrapper.m_gameplay_Click;
+        public InputAction @SpellSelect => m_Wrapper.m_gameplay_SpellSelect;
         public InputActionMap Get() { return m_Wrapper.m_gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -915,6 +927,9 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
             @Click.started += instance.OnClick;
             @Click.performed += instance.OnClick;
             @Click.canceled += instance.OnClick;
+            @SpellSelect.started += instance.OnSpellSelect;
+            @SpellSelect.performed += instance.OnSpellSelect;
+            @SpellSelect.canceled += instance.OnSpellSelect;
         }
 
         private void UnregisterCallbacks(IGameplayActions instance)
@@ -931,6 +946,9 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
             @Click.started -= instance.OnClick;
             @Click.performed -= instance.OnClick;
             @Click.canceled -= instance.OnClick;
+            @SpellSelect.started -= instance.OnSpellSelect;
+            @SpellSelect.performed -= instance.OnSpellSelect;
+            @SpellSelect.canceled -= instance.OnSpellSelect;
         }
 
         public void RemoveCallbacks(IGameplayActions instance)
@@ -1126,6 +1144,7 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnSpellcast(InputAction.CallbackContext context);
         void OnClick(InputAction.CallbackContext context);
+        void OnSpellSelect(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

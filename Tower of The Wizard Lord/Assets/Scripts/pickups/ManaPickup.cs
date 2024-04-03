@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ManaPickup : BasePickup
@@ -22,14 +23,4 @@ public class ManaPickup : BasePickup
         onUpdate = reform;
     }
 
-    void reform()
-    {
-        _timer -= Time.deltaTime;
-        if (_timer < 0)
-        {
-            _animator.SetTrigger("reform");
-            _collider.enabled = true;
-            onUpdate = doNothing;
-        }
-    }
 }

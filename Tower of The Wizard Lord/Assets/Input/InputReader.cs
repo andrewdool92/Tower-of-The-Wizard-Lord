@@ -37,6 +37,8 @@ public class InputReader : ScriptableObject, GameInput.IGameplayActions, GameInp
     public event Action SpellcastEvent;
     public event Action SpellcastCancelledEvent;
 
+    public event Action<Vector2> SpellSelectEvent;
+
     public event Action ClickEvent;
     public event Action ClickCancelledEvent;
 
@@ -174,6 +176,11 @@ public class InputReader : ScriptableObject, GameInput.IGameplayActions, GameInp
     public void OnContinue(InputAction.CallbackContext context)
     {
         continueDialogueEvent?.Invoke();
+    }
+
+    public void OnSpellSelect(InputAction.CallbackContext context)
+    {
+        SpellSelectEvent?.Invoke(context.ReadValue<Vector2>());
     }
 }
 

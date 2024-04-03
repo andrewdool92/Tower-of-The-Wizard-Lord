@@ -62,6 +62,7 @@ public class Projectile : MonoBehaviour
 
     private void OnCollisionEnter2D(UnityEngine.Collision2D collision)
     {
+        Debug.Log("collision!");
         _collision?.Invoke(collision);
     }
 
@@ -147,6 +148,14 @@ public class Projectile : MonoBehaviour
                 if (_timer < 0)
                 {
                     _triggerImpact();
+                }
+            };
+
+            _collision = (collision) =>
+            {
+                if (collision.gameObject.CompareTag("blocker"))
+                {
+                    _body.velocity = _body.velocity * -0.8f;
                 }
             };
         }
