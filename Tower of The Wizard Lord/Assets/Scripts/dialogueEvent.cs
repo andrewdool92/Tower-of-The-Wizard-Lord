@@ -22,7 +22,6 @@ public class dialogueEvent : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log($"Trigger enter called - object: {this.name}");
         if (pages != null)
         {
             DialogueEventManager.Instance.startDialogue(pages);

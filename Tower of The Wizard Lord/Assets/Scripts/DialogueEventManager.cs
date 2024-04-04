@@ -36,11 +36,23 @@ public class DialogueEventManager : MonoBehaviour
 
     private List<dialoguePage> _dialogueSet;
     private int _dialogueIndex = 0;
+
+    public bool moveTutorialActive = true;
+    public bool spellTutorialActive = true;
+    public bool swapTutorialActive = true;
+
+    private Transform _moveTutorial;
+    private Transform _spellTutorial;
+    private Transform _swapTutorial;
+    private Transform _activeTutorial;
     
     // Start is called before the first frame update
     void Start()
     {
         _dialogueIndex = 0;
+
+        _moveTutorial = transform.Find("MoveTutorial");
+        _moveTutorial.gameObject.SetActive(false);
 
         GameManager.ContinueDialogueEvent += handleContinueDialogue;
     }
@@ -79,18 +91,16 @@ public class DialogueEventManager : MonoBehaviour
 
     private void handleContinueDialogue()
     {
-        _dialogueIndex++;
-        Debug.Log($"Dialogue index: {_dialogueIndex} - count: {_dialogueSet.Count}");
-        if (_dialogueIndex < _dialogueSet.Count)
+        if (_activeTutorial != null && _dialogueIndex++ < _dialogueSet.Count)
         {
             dialoguePage dialogue = _dialogueSet[_dialogueIndex];
             showDialogue(dialogue.name, dialogue.text);
         }
         else
         {
-            Debug.Log($"Dialogue index: {_dialogueIndex}");
             GameManager.Instance.endDialogue();
             _dialogueSet.Clear();
+            _activeTutorial = null;
         }
     }
 
@@ -100,4 +110,21 @@ public class DialogueEventManager : MonoBehaviour
         _dialogueIndex = 0;
     }
 
+    public void displayTutorial(Tutorial tutorial)
+    {
+        if (tutorial == Tutorial.move && moveTutorialActive)
+        {
+            _activeTutorial = _moveTutorial;
+            GameManager.Instance.enterDialogue();
+            _moveTutorial.gameObject.SetActive(true);
+            moveTutorialActive = false;
+        }
+    }
+}
+
+public enum Tutorial
+{
+    move,
+    spell,
+    swap
 }
