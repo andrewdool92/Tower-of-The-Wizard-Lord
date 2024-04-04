@@ -86,7 +86,7 @@ public class DialogueEventManager : MonoBehaviour
 
     private void handleContinueDialogue()
     {
-        if (_activeTutorial == Tutorial.none && _dialogueIndex++ < _dialogueSet.Count)
+        if (_activeTutorial == Tutorial.none && _dialogueIndex++ < _dialogueSet.Count - 1)
         {
             dialoguePage dialogue = _dialogueSet[_dialogueIndex];
             showDialogue(dialogue.name, dialogue.text);

@@ -22,7 +22,7 @@ public class dialogueEvent : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (pages != null)
+        if (pages.Count > 0)
         {
             DialogueEventManager.Instance.startDialogue(pages);
         }
