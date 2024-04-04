@@ -107,7 +107,8 @@ public class DialogueEventManager : MonoBehaviour
 
     public void displayTutorial(Tutorial tutorial)
     {
-        if (tutorial == Tutorial.move && moveTutorialEnabled)
+        if ((tutorial == Tutorial.move && moveTutorialEnabled) ||
+            (tutorial == Tutorial.spell && spellTutorialEnabled))
         {
             _activeTutorial = tutorial;
             GameManager.Instance.enterDialogue();

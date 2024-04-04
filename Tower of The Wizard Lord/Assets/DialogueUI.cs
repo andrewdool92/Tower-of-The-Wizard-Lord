@@ -44,6 +44,9 @@ public class DialogueUI : MonoBehaviour
 
         _moveTutorial = tutorialRoot.transform.Find("Move");
         _moveTutorial.gameObject.SetActive(false);
+
+        _spellTutorial = tutorialRoot.transform.Find("Spell");
+        _spellTutorial.gameObject.SetActive(false);
     }
 
     private void updateSpeaker(string name)
