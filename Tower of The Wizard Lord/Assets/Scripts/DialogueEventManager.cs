@@ -21,6 +21,7 @@ public class DialogueEventManager : MonoBehaviour
     }
 
     public static event Action<string, string> ShowDialogueEvent;
+    public static event Action<Tutorial> showTutorialEvent;
 
     public struct dialoguePage
     {
@@ -37,22 +38,16 @@ public class DialogueEventManager : MonoBehaviour
     private List<dialoguePage> _dialogueSet;
     private int _dialogueIndex = 0;
 
-    public bool moveTutorialActive = true;
-    public bool spellTutorialActive = true;
-    public bool swapTutorialActive = true;
+    public bool moveTutorialEnabled = true;
+    public bool spellTutorialEnabled = true;
+    public bool swapTutorialEnabled = true;
 
-    private Transform _moveTutorial;
-    private Transform _spellTutorial;
-    private Transform _swapTutorial;
-    private Transform _activeTutorial;
+    private Tutorial _activeTutorial = Tutorial.none;
     
     // Start is called before the first frame update
     void Start()
     {
         _dialogueIndex = 0;
-
-        _moveTutorial = transform.Find("MoveTutorial");
-        _moveTutorial.gameObject.SetActive(false);
 
         GameManager.ContinueDialogueEvent += handleContinueDialogue;
     }
@@ -91,7 +86,7 @@ public class DialogueEventManager : MonoBehaviour
 
     private void handleContinueDialogue()
     {
-        if (_activeTutorial != null && _dialogueIndex++ < _dialogueSet.Count)
+        if (_activeTutorial == Tutorial.none && _dialogueIndex++ < _dialogueSet.Count)
         {
             dialoguePage dialogue = _dialogueSet[_dialogueIndex];
             showDialogue(dialogue.name, dialogue.text);
@@ -99,8 +94,8 @@ public class DialogueEventManager : MonoBehaviour
         else
         {
             GameManager.Instance.endDialogue();
-            _dialogueSet.Clear();
-            _activeTutorial = null;
+            _dialogueSet?.Clear();
+            _activeTutorial = Tutorial.none;
         }
     }
 
@@ -112,12 +107,12 @@ public class DialogueEventManager : MonoBehaviour
 
     public void displayTutorial(Tutorial tutorial)
     {
-        if (tutorial == Tutorial.move && moveTutorialActive)
+        if (tutorial == Tutorial.move && moveTutorialEnabled)
         {
-            _activeTutorial = _moveTutorial;
+            _activeTutorial = tutorial;
             GameManager.Instance.enterDialogue();
-            _moveTutorial.gameObject.SetActive(true);
-            moveTutorialActive = false;
+            showTutorialEvent?.Invoke(tutorial);
+            moveTutorialEnabled = false;
         }
     }
 }
@@ -126,5 +121,6 @@ public enum Tutorial
 {
     move,
     spell,
-    swap
+    swap,
+    none
 }
