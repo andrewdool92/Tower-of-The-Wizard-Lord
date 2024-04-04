@@ -37,7 +37,9 @@ public class GameManager : MonoBehaviour
 
     public static event Action<int> FloorUpdateEvent;
 
+    public static event Action StartDialogueEvent;
     public static event Action ContinueDialogueEvent;
+    public static event Action ExitDialogueEvent;
 
     public static event Action<spellType> spellSelectEvent;
 
@@ -171,12 +173,14 @@ public class GameManager : MonoBehaviour
     {
         inputReader.startDialogue();
         Time.timeScale = 0;
+        StartDialogueEvent?.Invoke();
     }
 
     public void endDialogue()
     {
         inputReader.endDialogue();
         Time.timeScale = 1;
+        ExitDialogueEvent?.Invoke();
     }
 
     private void handleContinueDialogue()

@@ -138,7 +138,6 @@ public class PlayerController : MonoBehaviour
 
     private void setupSpells()
     {
-        Debug.Log("setting up spells");
         Spell spell = Instantiate(defaultSpell, this.transform);
         _spells[spellType.starting] = new spellWrapper(Instantiate(defaultSpell, transform), this.transform);
         _spells[spellType.fire] = new spellWrapper(Instantiate(fireSpell), this.transform);
