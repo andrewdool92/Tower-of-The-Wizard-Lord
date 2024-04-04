@@ -16,6 +16,6 @@ public class tutorialTrigger : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         DialogueEventManager.Instance.displayTutorial(tutorial);
-        this.enabled = false;
+        gameObject.SetActive(false);
     }
 }

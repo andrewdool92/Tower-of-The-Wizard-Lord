@@ -18,6 +18,8 @@ public class SpellSelectorUI : MonoBehaviour
 
         spellIcons[spellType.fire] = transform.Find("Fire").GetComponent<Image>();
         spellIcons[spellType.ice] = transform.Find("Ice").GetComponent<Image>();
+        spellIcons[spellType.zap] = transform.Find("Zap").GetComponent <Image>();
+        spellIcons[spellType.wind] = transform.Find("Wind").GetComponent<Image>();
 
         GameManager.spellSelectEvent += updateSpellIcons;
 

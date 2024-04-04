@@ -395,5 +395,7 @@ public enum spellType
 {
     starting,
     fire,
-    ice
+    ice,
+    zap,
+    wind
 }
