@@ -40,7 +40,7 @@ public class SceneManagerScript : MonoBehaviour
         GameManager.OnGameStateChanged -= handleGameState;
     }
 
-    private void fadeMusic()
+    private void fadeMusic(gameOver gameOver)
     {
         AudioManager.Instance.fadeAudio(music, 1);
     }

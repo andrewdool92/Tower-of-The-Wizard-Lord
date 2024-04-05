@@ -55,7 +55,7 @@ public class spellSelector : MonoBehaviour
 
         if (spell == spellType.ice)
         {
-            // trigger tutorial popup: spell swapping
+            DialogueEventManager.Instance.displayTutorial(Tutorial.swap);
         }
     }
 

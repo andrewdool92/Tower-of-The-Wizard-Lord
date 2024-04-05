@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class inGameUI : MonoBehaviour
@@ -7,12 +8,10 @@ public class inGameUI : MonoBehaviour
     [SerializeField] bool activateOnStart;
     [SerializeField] bool activateOnGameOver;
 
-    [SerializeField] AudioClip gameOverSound;
-    [Range(0f, 1f)] public float gameOverVolume;
 
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         this.gameObject.SetActive(activateOnStart);
 
@@ -24,13 +23,10 @@ public class inGameUI : MonoBehaviour
         GameManager.OnGameOver -= handleGameOver;
     }
 
-    private void handleGameOver()
+    protected virtual void handleGameOver(gameOver state)
     {
         gameObject.SetActive(activateOnGameOver);
-        if (gameOverSound != null)
-        {
-            AudioManager.Instance.playSoundClip(gameOverSound, transform, gameOverVolume);
-        }
     }
+
 
 }

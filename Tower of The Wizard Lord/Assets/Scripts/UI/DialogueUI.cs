@@ -51,6 +51,9 @@ public class DialogueUI : MonoBehaviour
 
         _spendTutorial = tutorialRoot.transform.Find("Spell2");
         _spendTutorial.gameObject.SetActive(false);
+
+        _swapTutorial = tutorialRoot.transform.Find("Spell3");
+        _swapTutorial.gameObject.SetActive(false);
     }
 
     private void updateSpeaker(string name)

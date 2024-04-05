@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
     private GameObject ui;
 
     public static event Action<GameState> OnGameStateChanged;
-    public static event Action OnGameOver;
+    public static event Action<gameOver> OnGameOver;
 
     public ManaTracker playerMana = new ManaTracker(5, 5);
     public static event Action<ManaPhase> ManaUpdateEvent;
@@ -127,12 +127,17 @@ public class GameManager : MonoBehaviour
         inputReader.setGameplay();
     }
 
+    public void triggerVicotry()
+    {
+        OnGameOver?.Invoke(gameOver.win);
+    }
+
     private void checkGameOver()
     {
         if (playerMana.Mana < 0)
         {
             inputReader.setUI();
-            OnGameOver?.Invoke();
+            OnGameOver?.Invoke(gameOver.lose);
         }
     }
 
@@ -215,5 +220,11 @@ public enum ManaPhase
     cancel,
     pickup,
     damage
+}
+
+public enum gameOver
+{
+    win,
+    lose
 }
 
