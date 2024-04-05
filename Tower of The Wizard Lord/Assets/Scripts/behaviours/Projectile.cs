@@ -7,7 +7,7 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     [SerializeField] bool isPhysicsObject = false;     //  determines logic for how this projectile is simulated
-    [SerializeField] bool destroyOnImpact = false;     
+    //[SerializeField] bool destroyOnImpact = false;     
 
     [SerializeField] float speedModifier;
     [SerializeField] float powerScaler;
@@ -62,7 +62,6 @@ public class Projectile : MonoBehaviour
 
     private void OnCollisionEnter2D(UnityEngine.Collision2D collision)
     {
-        Debug.Log("collision!");
         _collision?.Invoke(collision);
     }
 

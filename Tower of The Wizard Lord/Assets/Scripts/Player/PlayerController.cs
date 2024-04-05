@@ -35,6 +35,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float audioJumpPoint;  // the point to jump to when the audio should stop
 
     private PitfallDropable _dropController;
+    private damageable _damageController;
     private Collider2D _collider;
     private float _fallTimer;
 
@@ -71,6 +72,7 @@ public class PlayerController : MonoBehaviour
 
         _dropController = GetComponent<PitfallDropable>();
         _dropController.onPitfall += handlePitfall;
+        _damageController = GetComponent<damageable>();
         _collider = GetComponent<Collider2D>();
 
         setupSpells();
@@ -158,12 +160,24 @@ public class PlayerController : MonoBehaviour
 
     public void equipSpell(spellWrapper spell)
     {
+        spellWrapper last = _spell;
         _spell = spell;
+
+        if (_particlesActive)
+        {
+            last.toggleParticles(false);
+            _spell.toggleParticles(true);
+        }
+        if (_auraActive)
+        {
+            last.toggleAura(false);
+            _spell.toggleAura(true);
+        }
     }
 
     public void equipSpell(spellType spell)
     {
-        _spell = _spells[spell];
+        equipSpell(_spells[spell]);
     }
 
     void handleMove(Vector2 input)
@@ -335,7 +349,7 @@ public class PlayerController : MonoBehaviour
         _fallTimer -= Time.deltaTime;
         if (_fallTimer < 0)
         {
-            GameManager.Instance.updateMana(ManaPhase.damage);
+            _damageController.takeDamage(1);
             _collider.enabled = true;
             GameManager.Instance.updateFloor(-1);
             resumeControl();
@@ -354,6 +368,11 @@ public class PlayerController : MonoBehaviour
             AudioManager.Instance.playRandomClip(_barrierBreakSound, transform, barrierVolume);
             _barrierAnimator.SetTrigger("break");
         }
+    }
+
+    public void updateBarrier(bool immune)
+    {
+        _barrierAnimator.SetBool("immune", immune);
     }
 
     private void startChargeFX()

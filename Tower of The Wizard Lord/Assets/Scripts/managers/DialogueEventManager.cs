@@ -38,9 +38,12 @@ public class DialogueEventManager : MonoBehaviour
     private List<dialoguePage> _dialogueSet;
     private int _dialogueIndex = 0;
 
+    public HashSet<Tutorial> viewedTutorials = new HashSet<Tutorial>();
+
     public bool moveTutorialEnabled = true;
     public bool spellTutorialEnabled = true;
     public bool swapTutorialEnabled = true;
+    public bool spendTutorialEnabled = true;
 
     private Tutorial _activeTutorial = Tutorial.none;
     
@@ -107,14 +110,22 @@ public class DialogueEventManager : MonoBehaviour
 
     public void displayTutorial(Tutorial tutorial)
     {
-        if ((tutorial == Tutorial.move && moveTutorialEnabled) ||
-            (tutorial == Tutorial.spell && spellTutorialEnabled))
-        {
+        //if ((tutorial == Tutorial.move && moveTutorialEnabled) ||
+        //    (tutorial == Tutorial.spell && spellTutorialEnabled) ||
+        //    (tutorial == Tutorial.manaSpend && spendTutorialEnabled))
+        //{
+        //    _activeTutorial = tutorial;
+        //    GameManager.Instance.enterDialogue();
+        //    showTutorialEvent?.Invoke(tutorial);
+        //    moveTutorialEnabled = false;
+        //}
+
+        if (!(viewedTutorials.Contains(tutorial))) {
             _activeTutorial = tutorial;
             GameManager.Instance.enterDialogue();
             showTutorialEvent?.Invoke(tutorial);
-            moveTutorialEnabled = false;
-        }
+            viewedTutorials.Add(tutorial);
+        } 
     }
 }
 
@@ -122,6 +133,7 @@ public enum Tutorial
 {
     move,
     spell,
+    manaSpend,
     swap,
     none
 }

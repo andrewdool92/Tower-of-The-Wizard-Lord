@@ -70,7 +70,7 @@ public class Switchable : MonoBehaviour
     [SerializeField] Switchable[] controllers;
     private Dictionary<int, bool> toggles;
 
-    private bool _state;
+    public bool _state;
 
     public virtual void OnDestroy()
     {
@@ -93,6 +93,8 @@ public class Switchable : MonoBehaviour
     {
         bool previous = _state;
         _state = evaluateToggle();
+
+        Debug.Log($"{previous} : {_state}");
 
         if (_state != previous)
         {

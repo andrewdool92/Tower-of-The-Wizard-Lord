@@ -23,7 +23,6 @@ public class SpellPickup : BasePickup
 
         Transform book = transform.Find("book");
         _bookCollider = book.GetComponent<CircleCollider2D>();
-        Debug.Log(_bookCollider.isTrigger);
 
         _animator = book.GetComponent<Animator>();
         setupParticleSystems(book);

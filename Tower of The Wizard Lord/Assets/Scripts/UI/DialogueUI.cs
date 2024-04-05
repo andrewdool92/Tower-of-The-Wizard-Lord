@@ -12,6 +12,7 @@ public class DialogueUI : MonoBehaviour
     private Transform _moveTutorial;
     private Transform _spellTutorial;
     private Transform _swapTutorial;
+    private Transform _spendTutorial;
     private Transform _activeTutorial;
 
     // Start is called before the first frame update
@@ -47,6 +48,9 @@ public class DialogueUI : MonoBehaviour
 
         _spellTutorial = tutorialRoot.transform.Find("Spell");
         _spellTutorial.gameObject.SetActive(false);
+
+        _spendTutorial = tutorialRoot.transform.Find("Spell2");
+        _spendTutorial.gameObject.SetActive(false);
     }
 
     private void updateSpeaker(string name)
@@ -87,6 +91,7 @@ public class DialogueUI : MonoBehaviour
             Tutorial.move => _moveTutorial,
             Tutorial.spell => _spellTutorial,
             Tutorial.swap => _swapTutorial,
+            Tutorial.manaSpend => _spendTutorial,
             _ => null
         };
 

@@ -45,6 +45,18 @@ public class spellSelector : MonoBehaviour
     public void enableSpell(spellType spell)
     {
         enabledSpells[spell] = true;
+
+        // temporary logic ahead:
+        if (spell == spellType.fire)
+        {
+            GameManager.Instance.updateSpell(spell);
+            DialogueEventManager.Instance.displayTutorial(Tutorial.manaSpend);
+        }
+
+        if (spell == spellType.ice)
+        {
+            // trigger tutorial popup: spell swapping
+        }
     }
 
     private Vector2 toCardinal(Vector2 direction)
