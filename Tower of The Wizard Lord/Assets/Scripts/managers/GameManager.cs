@@ -127,7 +127,7 @@ public class GameManager : MonoBehaviour
         inputReader.setGameplay();
     }
 
-    public void triggerVicotry()
+    public void triggerVictory()
     {
         inputReader.setUI();
         OnGameOver?.Invoke(gameOver.win);

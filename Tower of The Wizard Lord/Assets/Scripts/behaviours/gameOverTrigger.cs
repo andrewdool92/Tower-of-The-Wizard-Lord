@@ -15,7 +15,7 @@ public class gameOverTrigger : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        GameManager.Instance.triggerVicotry();
+        GameManager.Instance.triggerVictory();
         gameObject.SetActive(false);
     }
 }
