@@ -74,9 +74,6 @@ public class DialogueEventManager : MonoBehaviour
             _dialogueSet.Add(page);
         }
 
-        Debug.Log(pages.Count);
-        Debug.Log(_dialogueSet.Count);
-
         showDialogue(pages[0].name, pages[0].text);
         GameManager.Instance.enterDialogue();
     }

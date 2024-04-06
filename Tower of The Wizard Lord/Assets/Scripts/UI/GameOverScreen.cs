@@ -14,19 +14,33 @@ public class GameOverScreen : inGameUI
     public float confettiTimeOffset;
     [Range(0f, 1f)] public float vicotryVolume;
 
+    [SerializeField] AudioClip pauseSound;
+    [SerializeField] AudioClip unpauseSound;
+    [Range(0f, 1f)] public float pauseVolume;
+
     private fireworks _confetti1;
     private fireworks _confetti2;
 
     public string gameOverMessage;
     public string victoryMessage;
+    public string pausedMessage;
     private TextMeshProUGUI label;
 
+    private bool _paused = false;
 
     protected override void Start()
     {
         base.Start();
         instantiateConfetti();
         label = GetComponentInChildren<TextMeshProUGUI>();
+
+        GameManager.OnGameStateChanged += handlePause;
+    }
+
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+        GameManager.OnGameStateChanged -= handlePause;
     }
 
     private void instantiateConfetti()
@@ -66,5 +80,26 @@ public class GameOverScreen : inGameUI
         }
 
         gameObject.SetActive(true);
+    }
+
+    public void handlePause(GameState state)
+    {
+        if (!_paused && state == GameState.pause)
+        {
+            AudioManager.Instance.playSoundClip(pauseSound, transform, pauseVolume);
+            label.text = pausedMessage;
+            _paused = true;
+            gameObject.SetActive(true);
+        }
+        else if (_paused && state == GameState.gameplay)
+        {
+            AudioManager.Instance.playSoundClip(unpauseSound, transform, pauseVolume);
+            _paused = false;
+            gameObject.SetActive(false);
+        }
+        else if (state == GameState.main)
+        {
+            gameObject.SetActive(true);
+        }
     }
 }

@@ -18,7 +18,7 @@ public class inGameUI : MonoBehaviour
         GameManager.OnGameOver += handleGameOver;
     }
 
-    private void OnDestroy()
+    protected virtual void OnDestroy()
     {
         GameManager.OnGameOver -= handleGameOver;
     }

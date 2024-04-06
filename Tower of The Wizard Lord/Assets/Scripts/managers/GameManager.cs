@@ -116,6 +116,7 @@ public class GameManager : MonoBehaviour
     private void handleMainMenu()
     {
         inputReader.setUI();
+        Time.timeScale = 1;
         SceneManager.LoadScene("SplashScreen");
     }
 
