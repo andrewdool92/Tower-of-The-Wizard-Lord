@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
-using UnityEditorInternal;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -13,15 +12,29 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private float spellCooldown;
     [SerializeField] private Spell defaultSpell;
-    private Spell _spell;
+    [SerializeField] private Spell fireSpell;
+    [SerializeField] private Spell iceSpell;
+    private Dictionary<spellType, spellWrapper> _spells = new Dictionary<spellType, spellWrapper>();
+    private spellWrapper _spell;
     
-    [SerializeField] ParticleSystem _spellParticles;
-    [SerializeField] ParticleSystem _spellAura;
-    [SerializeField] Animator _barrierAnimator;
     private bool _particlesActive;
     private bool _auraActive;
 
+    [SerializeField] Animator _barrierAnimator;
+    [SerializeField] AudioClip[] _barrierBlockSound;
+    [SerializeField] AudioClip[] _barrierBreakSound;
+    [Range(0f, 1f)] public float barrierVolume = 1f;
+
+
+    [SerializeField] AudioClip chargeFX;
+    [SerializeField] float fadeinDuration;
+    [Range(0f, 1f)] public float chargeVolume;
+    AudioSource chargeSound;
+    [SerializeField] float audioLoopPoint;  // the point at which the audio should loop back to the beginning
+    [SerializeField] float audioJumpPoint;  // the point to jump to when the audio should stop
+
     private PitfallDropable _dropController;
+    private damageable _damageController;
     private Collider2D _collider;
     private float _fallTimer;
 
@@ -58,17 +71,20 @@ public class PlayerController : MonoBehaviour
 
         _dropController = GetComponent<PitfallDropable>();
         _dropController.onPitfall += handlePitfall;
+        _damageController = GetComponent<damageable>();
         _collider = GetComponent<Collider2D>();
 
-        _spell = Instantiate(defaultSpell);
-        _spellParticles = Instantiate(_spellParticles, this.transform);
-        _spellAura = Instantiate(_spellAura, this.transform);
+        setupSpells();
+        equipSpell(_spells[spellType.starting]);
+        GameManager.spellSelectEvent += equipSpell;
 
         _barrierAnimator = Instantiate(_barrierAnimator, this.transform);
         GameManager.PlayerDamageEvent += triggerBarrier;
 
         _particlesActive = false;
         _auraActive = false;
+
+        chargeSound = AudioManager.Instance.createPersistentAudioSource(chargeFX, this.transform);
 
         _moveDirection = Vector2.up;
         rooted();                       // set the player's initial facing
@@ -81,8 +97,54 @@ public class PlayerController : MonoBehaviour
         _inputReader.SpellcastEvent -= handleSpellcast;
         _inputReader.SpellcastCancelledEvent -= handleSpellcastCancelled;
         _dropController.onPitfall -= handlePitfall;
+        GameManager.spellSelectEvent -= equipSpell;
         GameManager.PlayerDamageEvent -= triggerBarrier;
     }
+
+    public class spellWrapper
+    {
+        public Spell spell;
+        ParticleSystem _chargeParticles;
+        ParticleSystem _chargeAura;
+        public spellWrapper(Spell spell, Transform parent)
+        {
+            this.spell = spell;
+            _chargeParticles = Instantiate(this.spell.chargeParticles, parent);
+            _chargeAura = Instantiate(this.spell.chargeAura, parent);
+        }
+
+        public void toggleParticles(bool active)
+        {
+            switch (active)
+            {
+                case true: _chargeParticles.Play(); break;
+                case false: _chargeParticles.Stop(); break;
+            }
+        }
+
+        public void toggleAura(bool active)
+        {
+            switch (active)
+            {
+                case true: _chargeAura.Play(); break;
+                case false: _chargeAura.Stop(); break;
+            }
+        }
+
+        public Vector2 activate(Vector2 position, Vector2 direction, float chargeTime)
+        {
+            return spell.activate(position, direction, chargeTime);
+        }
+    }
+
+    private void setupSpells()
+    {
+        Spell spell = Instantiate(defaultSpell, this.transform);
+        _spells[spellType.starting] = new spellWrapper(Instantiate(defaultSpell, transform), this.transform);
+        _spells[spellType.fire] = new spellWrapper(Instantiate(fireSpell), this.transform);
+        _spells[spellType.ice] = new spellWrapper(Instantiate(iceSpell), this.transform);
+    }
+
 
     // Update is called once per frame
     private void Update()
@@ -93,6 +155,28 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         _move();
+    }
+
+    public void equipSpell(spellWrapper spell)
+    {
+        spellWrapper last = _spell;
+        _spell = spell;
+
+        if (_particlesActive)
+        {
+            last.toggleParticles(false);
+            _spell.toggleParticles(true);
+        }
+        if (_auraActive)
+        {
+            last.toggleAura(false);
+            _spell.toggleAura(true);
+        }
+    }
+
+    public void equipSpell(spellType spell)
+    {
+        equipSpell(_spells[spell]);
     }
 
     void handleMove(Vector2 input)
@@ -111,6 +195,7 @@ public class PlayerController : MonoBehaviour
         _animator.SetFloat("HoldTime", _timer);
 
         GameManager.Instance.updateMana(ManaPhase.casting);
+        startChargeFX();
     }
 
     void handleSpellcastCancelled()
@@ -131,6 +216,7 @@ public class PlayerController : MonoBehaviour
         }
         GameManager.Instance.updateMana(ManaPhase.cancel);
 
+        completeChargeFX();
         stopPaticles();
         _timer = 0;
     }
@@ -142,6 +228,7 @@ public class PlayerController : MonoBehaviour
         _move = mobile;
         _action = noAction;
 
+        cancelChargeFX();
         stopPaticles();
     }
 
@@ -149,12 +236,12 @@ public class PlayerController : MonoBehaviour
     {
         if (_particlesActive)
         {
-            _spellParticles.Stop();
+            _spell.toggleParticles(false);
             _particlesActive = false;
         }
         if (_auraActive)
         {
-            _spellAura.Stop();
+            _spell.toggleAura(false);
             _auraActive = false;
         }
     }
@@ -197,18 +284,19 @@ public class PlayerController : MonoBehaviour
     {
         _timer += Time.deltaTime;
         _animator.SetFloat("HoldTime", _timer);
+        loopChargeFX();
 
         if (_timer > 0.3 && !_auraActive)
         {
             _auraActive = true;
-            _spellAura.Play();
+            _spell.toggleAura(true);
         }
         if (_timer > 1 && !_particlesActive && _mana.Primed)
         {
             _particlesActive = true;
-            _spellParticles.Play();
+            _spell.toggleParticles(true);
         }
-        if (_spell.chargeThresholdReached(_timer))
+        if (_spell.spell.chargeThresholdReached(_timer))
         {
             GameManager.Instance.updateMana(ManaPhase.prime);
         }
@@ -260,7 +348,7 @@ public class PlayerController : MonoBehaviour
         _fallTimer -= Time.deltaTime;
         if (_fallTimer < 0)
         {
-            GameManager.Instance.updateMana(ManaPhase.damage);
+            _damageController.takeDamage(1);
             _collider.enabled = true;
             GameManager.Instance.updateFloor(-1);
             resumeControl();
@@ -272,11 +360,60 @@ public class PlayerController : MonoBehaviour
         if (_mana.Mana > 0)
         {
             _barrierAnimator.SetTrigger("block");
+            AudioManager.Instance.playRandomClip(_barrierBlockSound, transform, barrierVolume);
         }
         else if (_mana.Mana == 0)
         {
+            AudioManager.Instance.playRandomClip(_barrierBreakSound, transform, barrierVolume);
             _barrierAnimator.SetTrigger("break");
+        }
+    }
+
+    public void updateBarrier(bool immune)
+    {
+        _barrierAnimator.SetBool("immune", immune);
+    }
+
+    private void startChargeFX()
+    {
+        chargeSound = AudioManager.Instance.createPersistentAudioSource(chargeFX, transform);
+        chargeSound.enabled = true;
+        AudioManager.Instance.fadeInAudio(chargeSound, fadeinDuration, chargeVolume);
+    }
+
+    private void loopChargeFX()
+    {
+        if (chargeSound != null && chargeSound.time > audioLoopPoint)
+        {
+            chargeSound.time = 0;
+        }
+    }
+
+    private void completeChargeFX()
+    {
+        if (chargeSound != null)
+        {
+            chargeSound.time = audioJumpPoint;
+            Destroy(chargeSound.gameObject, 1f);
+        }
+    }
+
+    private void cancelChargeFX()
+    {
+        if (chargeSound != null)
+        {
+            chargeSound.Stop();
+            Destroy(chargeSound.gameObject);
         }
     }
 }
 
+
+public enum spellType
+{
+    starting,
+    fire,
+    ice,
+    zap,
+    wind
+}

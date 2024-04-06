@@ -37,6 +37,8 @@ public class InputReader : ScriptableObject, GameInput.IGameplayActions, GameInp
     public event Action SpellcastEvent;
     public event Action SpellcastCancelledEvent;
 
+    public event Action<Vector2> SpellSelectEvent;
+
     public event Action ClickEvent;
     public event Action ClickCancelledEvent;
 
@@ -53,6 +55,7 @@ public class InputReader : ScriptableObject, GameInput.IGameplayActions, GameInp
 
             _gameInput.gameplay.SetCallbacks(this);
             _gameInput.UI.SetCallbacks(this);
+            _gameInput.dialogue.SetCallbacks(this);
         }
     }
 
@@ -70,14 +73,14 @@ public class InputReader : ScriptableObject, GameInput.IGameplayActions, GameInp
 
     public void startDialogue()
     {
-        _gameInput.gameplay.Disable();
         _gameInput.dialogue.Enable();
+        _gameInput.gameplay.Disable();
     }
 
     public void endDialogue()
     {
-        _gameInput.dialogue.Disable();
         _gameInput.gameplay.Enable();
+        _gameInput.dialogue.Disable();
     }
 
     public void OnMovement(InputAction.CallbackContext context)
@@ -173,7 +176,15 @@ public class InputReader : ScriptableObject, GameInput.IGameplayActions, GameInp
 
     public void OnContinue(InputAction.CallbackContext context)
     {
-        continueDialogueEvent?.Invoke();
+        if (context.phase == InputActionPhase.Performed)
+        {
+            continueDialogueEvent?.Invoke();
+        }
+    }
+
+    public void OnSpellSelect(InputAction.CallbackContext context)
+    {
+        SpellSelectEvent?.Invoke(context.ReadValue<Vector2>());
     }
 }
 

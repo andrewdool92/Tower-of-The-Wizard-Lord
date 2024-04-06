@@ -1,0 +1,4 @@
+1-6 Atack
+7-12 Run
+13-16 Idle
+17-23 Dead

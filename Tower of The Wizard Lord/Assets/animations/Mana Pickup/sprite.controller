@@ -93,9 +93,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.38887084
+  m_TransitionDuration: 0.31615752
   m_TransitionOffset: 0
-  m_ExitTime: 0.5720181
+  m_ExitTime: 0.57201815
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -118,9 +118,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.016895682
+  m_TransitionDuration: 0.020091847
   m_TransitionOffset: 0
-  m_ExitTime: 0.12708302
+  m_ExitTime: 0.04297761
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -140,13 +140,13 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: reform
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -174,9 +174,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.0067528784
+  m_TransitionDuration: 0
   m_TransitionOffset: 0
-  m_ExitTime: 0.5452237
+  m_ExitTime: 0.37976143
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - fire
   - blocker
+  - ice
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - fire
   - pickups
   - pit
-  - 
+  - moveblocker
   - 
   - 
   - 

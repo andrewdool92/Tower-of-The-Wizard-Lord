@@ -6,17 +6,20 @@ public class Spell : MonoBehaviour
 {
     [SerializeField] float activeTime;
     [SerializeField] bool cardinalDirectionLock;
+    [SerializeField] int objectPoolSize = 1;
+    private int _poolIndex = 0;
 
     [SerializeField] Vector2[] colliderSizes;
     [SerializeField] float[] offsets;
     [SerializeField] float chargeSpeed;
 
-    [SerializeField] ParticleSystem chargePaticles;
-    [SerializeField] ParticleSystem chageAura;
+    [SerializeField] public ParticleSystem chargeParticles;
+    [SerializeField] public ParticleSystem chargeAura;
 
     [SerializeField] Projectile projectile;
     [SerializeField] int projectileChargeThreshold;
     [SerializeField] float recoilModifier;
+    private Projectile[] _projectiles;
     float timer;
 
     private Transform _transform;
@@ -29,15 +32,14 @@ public class Spell : MonoBehaviour
     private delegate void update();
     private update onUpdate;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         _transform = GetComponent<Transform>();
         _animator = GetComponent<Animator>();
         _setupColliders();
-        projectile = Instantiate(projectile);
 
         timer = 0;
+        initializeProjectilePool();
 
         onUpdate = noActivity;
     }
@@ -45,6 +47,22 @@ public class Spell : MonoBehaviour
     private void Update()
     {
         onUpdate();
+    }
+
+    private void initializeProjectilePool()
+    {
+        _projectiles = new Projectile[objectPoolSize];
+
+        for (int i = 0; i < objectPoolSize; i++)
+        {
+            _projectiles[i] = Instantiate(projectile);
+        }
+    }
+
+    private Projectile getProjectileFromPool()
+    {
+        _poolIndex = (_poolIndex + 1) % objectPoolSize;
+        return _projectiles[_poolIndex];
     }
 
     private void _setupColliders()
@@ -76,6 +94,8 @@ public class Spell : MonoBehaviour
 
     public Vector2 activate(Vector2 position, Vector2 direction, float chargeTime)
     {
+        projectile = getProjectileFromPool();
+
         float power = chargeTime * chargeSpeed;
 
         if (!GameManager.Instance.playerMana.Primed)     // limit spell power when mana is not available

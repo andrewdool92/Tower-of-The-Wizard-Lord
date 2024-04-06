@@ -1,0 +1,5 @@
+1-4 Idle/walk/run
+5-9 Atack
+10-12 Dead
+
+Side view has only atack animation

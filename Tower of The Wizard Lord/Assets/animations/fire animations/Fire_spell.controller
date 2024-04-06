@@ -7,7 +7,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: fire_medium
+  m_Name: ice_medium
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -90,7 +90,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: fire_weak
+  m_Name: ice_weak
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -124,13 +124,13 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Power
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -186,9 +186,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.012476265
+  m_TransitionDuration: 0
   m_TransitionOffset: 0
-  m_ExitTime: 0.9698687
+  m_ExitTime: 0.000000004676309
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -236,9 +236,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.007296145
+  m_TransitionDuration: 0
   m_TransitionOffset: 0
-  m_ExitTime: 0.9733067
+  m_ExitTime: 0.0000000019662316
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0

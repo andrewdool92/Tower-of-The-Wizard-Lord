@@ -35,7 +35,8 @@ public class door : Switchable
         _bottomSprite.sprite = bottomSprites[index];
         
         _collider.enabled = !open;
-        _isOpen = open;        
+        _isOpen = open;
+        _state = open;
     }
 
     public void toggleDoorState()

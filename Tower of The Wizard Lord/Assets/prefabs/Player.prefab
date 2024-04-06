@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7142273419890912230}
   - component: {fileID: 7142273419890912224}
   - component: {fileID: 7142273419890912231}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116,7 +116,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7142273420223451902}
   - component: {fileID: 7142273420223451903}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player vcam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -131,7 +131,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7142273420223451901}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -161,7 +161,7 @@ MonoBehaviour:
   m_Follow: {fileID: 0}
   m_Lens:
     FieldOfView: 60
-    OrthographicSize: 5
+    OrthographicSize: 6
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -188,7 +188,7 @@ GameObject:
   - component: {fileID: 7142273420529267943}
   - component: {fileID: 7142273420529267937}
   - component: {fileID: 7142273420529267936}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: cm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -274,10 +274,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7142273420957319034}
+  - component: {fileID: 7142273420957319035}
+  - component: {fileID: 4209852371296553388}
+  - component: {fileID: 1538525785}
+  - component: {fileID: 1538525786}
   - component: {fileID: 7142273420957319013}
   - component: {fileID: 7142273420957319012}
-  - component: {fileID: 7142273420957319035}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -291,7 +294,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7142273420957319033}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -301,6 +304,76 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7142273420957319035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7142273420957319033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92dd24db3e67d6348902d02dce96b00f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  acceleration: 70
+  topSpeed: 10
+  spellCooldown: 0.5
+  defaultSpell: {fileID: 2634514817042695182, guid: fc53b8c4d7b2f9a418976e42ab7d0f44, type: 3}
+  fireSpell: {fileID: 4723856054201780011, guid: 9ffc03afff7740545ba1abf7c9aaf504, type: 3}
+  iceSpell: {fileID: 3859824355336981976, guid: ef9da3164286f8f48af7b662d44273ae, type: 3}
+  _barrierAnimator: {fileID: 8714316686996187023, guid: 0b8d4bf2ecdb4f749824e740250ff6ce, type: 3}
+  _barrierBlockSound:
+  - {fileID: 8300000, guid: 513f598e57d57ea4a944d221c2bbd741, type: 3}
+  _barrierBreakSound:
+  - {fileID: 8300000, guid: 7198ff1a55fbf204481f2b85cdeb029e, type: 3}
+  barrierVolume: 0.255
+  chargeFX: {fileID: 8300000, guid: 8e2deac5fdd367d4a9709fd6cab73bc1, type: 3}
+  fadeinDuration: 5
+  chargeVolume: 0.324
+  audioLoopPoint: 59
+  audioJumpPoint: 60
+--- !u!114 &4209852371296553388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7142273420957319033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0d59964d08588740a489369f615b660, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1538525785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7142273420957319033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47929fed4b6fb754ab4b4d42503d8681, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animationDelay: 0.5
+  delay: 1.3
+  offset: 100
+  _rigidbody: {fileID: 0}
+--- !u!114 &1538525786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7142273420957319033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5521e45384694c4d9d125ed753e4752, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: 1
 --- !u!58 &7142273420957319013
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -316,7 +389,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.48
 --- !u!50 &7142273420957319012
 Rigidbody2D:
   serializedVersion: 4
@@ -338,22 +411,3 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &7142273420957319035
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7142273420957319033}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92dd24db3e67d6348902d02dce96b00f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inputReader: {fileID: 11400000, guid: da0f7b619aff7d84d86257e5247c76b0, type: 2}
-  acceleration: 70
-  topSpeed: 10
-  spellCooldown: 0.5
-  defaultSpell: {fileID: 4723856054201780011, guid: 9ffc03afff7740545ba1abf7c9aaf504, type: 3}
-  _spellParticles: {fileID: 5937300828340270036, guid: 2d0cfc6927611d54789edcdc339fc9b0, type: 3}
-  _spellAura: {fileID: 3667344619497879066, guid: 8e36e0412e8b84444a82a21a920e872b, type: 3}
