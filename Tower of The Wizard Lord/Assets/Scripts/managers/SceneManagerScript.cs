@@ -45,8 +45,6 @@ public class SceneManagerScript : MonoBehaviour
         AudioManager.Instance.fadeAudio(music, 1);
     }
 
-
-
     public void LoadScene(string scene)
     {
         GameState newState;
@@ -70,5 +68,11 @@ public class SceneManagerScript : MonoBehaviour
         }
 
         GameManager.Instance.updateGameState(newState);
+    }
+
+    public void closeGame()
+    {
+        Debug.Log("closing");
+        Application.Quit();
     }
 }
