@@ -111,6 +111,7 @@ public class GameManager : MonoBehaviour
     {
         playerMana.reset();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Time.timeScale = 1;
     }
 
     private void handleMainMenu()
