@@ -124,6 +124,11 @@ public class DialogueEventManager : MonoBehaviour
             viewedTutorials.Add(tutorial);
         } 
     }
+
+    public void ResetViewedTutorials()
+    {
+        viewedTutorials.Clear();
+    }
 }
 
 public enum Tutorial

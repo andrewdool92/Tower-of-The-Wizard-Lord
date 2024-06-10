@@ -110,8 +110,7 @@ public class GameManager : MonoBehaviour
     private void handleRestart()
     {
         playerMana.reset();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        Time.timeScale = 1;
+        setLevel(SceneManager.GetActiveScene().name);
     }
 
     private void handleMainMenu()
@@ -119,19 +118,26 @@ public class GameManager : MonoBehaviour
         inputReader.setUI();
         Time.timeScale = 1;
         SceneManager.LoadScene("SplashScreen");
+        DialogueEventManager.Instance.ResetViewedTutorials();
     }
 
     private void handleTutorial()
     {
         playerMana.reset();
-        SceneManager.LoadScene("IntroTutorial");
-        inputReader.setGameplay();
+        setLevel("IntroTutorial");
     }
 
     public void triggerVictory()
     {
         inputReader.setUI();
         OnGameOver?.Invoke(gameOver.win);
+    }
+
+    public void setLevel(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
+        Time.timeScale = 1;
+        inputReader.setGameplay();
     }
 
     private void checkGameOver()
