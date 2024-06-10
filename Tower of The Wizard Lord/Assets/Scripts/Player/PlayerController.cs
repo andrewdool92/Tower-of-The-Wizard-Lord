@@ -321,6 +321,7 @@ public class PlayerController : MonoBehaviour
     public void disableControl()
     {
         interuptSpellcast();
+        _inputReader.SpellcastEvent -= handleSpellcast;
 
         _move = noAction;
         _action = noAction;
@@ -330,6 +331,7 @@ public class PlayerController : MonoBehaviour
     {
         _move = mobile;
         _action = noAction;
+        _inputReader.SpellcastEvent += handleSpellcast;
     }
 
     private void handlePitfall(float delay)
