@@ -50,6 +50,7 @@ MonoBehaviour:
   _swtichOnAudioFX: []
   _switchOffAudioFX: []
   controllers: []
+  _state: 0
   _offSprite: {fileID: -1490972430, guid: 0b612b09ccc95884086ac6ad98a6b260, type: 3}
   _onSprite: {fileID: 1287145255, guid: 0b612b09ccc95884086ac6ad98a6b260, type: 3}
 --- !u!212 &1575880419358337252
@@ -92,7 +93,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 9
+  m_SortingOrder: 19
   m_Sprite: {fileID: -1490972430, guid: 0b612b09ccc95884086ac6ad98a6b260, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

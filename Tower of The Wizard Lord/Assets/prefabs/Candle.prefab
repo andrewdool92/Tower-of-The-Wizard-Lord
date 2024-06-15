@@ -50,6 +50,7 @@ MonoBehaviour:
   _swtichOnAudioFX: []
   _switchOffAudioFX: []
   controllers: []
+  _state: 0
   flameObject: {fileID: 8177596503608567604, guid: 9ce9b3308ca494b4d9937de1b0ef2a77, type: 3}
   startLit: 0
 --- !u!212 &5635578114702414286
@@ -92,7 +93,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 9
+  m_SortingOrder: 19
   m_Sprite: {fileID: -636308408, guid: 0f864e6eefc6bf049afb34fc96a9f256, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

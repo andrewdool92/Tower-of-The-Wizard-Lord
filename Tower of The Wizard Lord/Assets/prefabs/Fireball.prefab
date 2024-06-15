@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7cb2260a35f5ce49a195d33c2b01025, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPhysicsObject: 0
   speedModifier: 2
   powerScaler: 1.5
   maxVelocity: 16
@@ -171,7 +172,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 12
+  m_SortingOrder: 22
   m_Sprite: {fileID: 1047634502, guid: 6c79fb9c46b9bdf4b898d341c3dcf37c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
