@@ -151,28 +151,10 @@ public class GameManager : MonoBehaviour
 
     public void updateMana(ManaPhase phase)
     {
-        switch (phase)
+        ManaUpdateEvent?.Invoke(phase);
+        if (phase == ManaPhase.damage)
         {
-            case ManaPhase.prime:
-                if (playerMana.Mana > 0)
-                {
-                    ManaUpdateEvent?.Invoke(phase);
-                    playerMana.Primed = true;
-                }
-                break;
-            case ManaPhase.charging:
-                if (playerMana.Mana < playerMana.MaxMana)
-                {
-                    ManaUpdateEvent?.Invoke(phase);
-                }
-                break;
-            case ManaPhase.damage:
-                ManaUpdateEvent?.Invoke(phase);
-                PlayerDamageEvent?.Invoke();        // needed to separate to deal with race condition on player barrier
-                break;
-            default:
-                ManaUpdateEvent?.Invoke(phase);
-                break;
+            PlayerDamageEvent?.Invoke();
         }
         checkGameOver();
     }

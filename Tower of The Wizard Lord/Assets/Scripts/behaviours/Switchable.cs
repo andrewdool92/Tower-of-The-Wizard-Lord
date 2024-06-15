@@ -94,8 +94,6 @@ public class Switchable : MonoBehaviour
         bool previous = _state;
         _state = evaluateToggle();
 
-        Debug.Log($"{previous} : {_state}");
-
         if (_state != previous)
         {
             onStateChange(_state);

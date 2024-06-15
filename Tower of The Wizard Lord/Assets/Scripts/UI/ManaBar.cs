@@ -98,6 +98,7 @@ public class ManaBar : MonoBehaviour
             Animator pip = manaPipAnimators[_playerMana.Mana - 1];
             pip.SetTrigger("prime");
             pip.ResetTrigger("completeCharge");
+            _playerMana.Primed = true;
             _playerMana.Mana -= 1;
 
             AudioManager.Instance.playRandomClip(primeSound, transform, primeVolume);
