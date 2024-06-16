@@ -209,7 +209,8 @@ public enum ManaPhase
     full,
     cancel,
     pickup,
-    damage
+    damage,
+    cast
 }
 
 public enum gameOver

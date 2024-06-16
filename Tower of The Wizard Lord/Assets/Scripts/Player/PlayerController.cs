@@ -225,7 +225,7 @@ public class PlayerController : MonoBehaviour
             Vector2 recoil = _spell.activate(transform.position, _facingDirection, _timer);
             _body.AddForce(recoil);
         }
-        GameManager.Instance.updateMana(ManaPhase.cancel);
+        GameManager.Instance.updateMana(ManaPhase.cast);
 
         completeChargeFX();
         stopPaticles();
@@ -426,7 +426,8 @@ public class PlayerController : MonoBehaviour
 
     private void takeDamage(int damage)
     {
-        for (int i = 0; i < damage; i++)
+        GameManager.Instance.updateMana(ManaPhase.damage);
+        for (int i = 1; i < damage; i++)
         {
             GameManager.Instance.updateMana(ManaPhase.damage);
         }
