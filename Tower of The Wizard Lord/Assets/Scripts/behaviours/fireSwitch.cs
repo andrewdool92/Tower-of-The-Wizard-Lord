@@ -15,13 +15,15 @@ public class fireSwitch : Switchable
     {
         base.Start();
         _flame = Instantiate(flameObject, this.transform, false);
+
+        _switchState = startLit;
     }
 
     public override void switchableSetup()
     {
         base.switchableSetup();
         _flame.setFlameState(startLit);
-        _switchState = _flame.onFire;
+        //_switchState = startLit;
         _flame.stateChange = flip;
     }
 

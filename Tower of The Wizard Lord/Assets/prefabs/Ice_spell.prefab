@@ -50,7 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeTime: 0.5
   cardinalDirectionLock: 1
-  objectPoolSize: 1
+  objectPoolSize: 5
   colliderSizes:
   - {x: 0.8, y: 1}
   - {x: 0.8, y: 2.538975}

@@ -82,7 +82,6 @@ public class ManaBar : MonoBehaviour
                 endCasting();
                 break;
         }
-        Debug.Log($"Mana: {_playerMana.Mana}; state: {phase}");
     }
 
     private void startCasting()
@@ -99,20 +98,24 @@ public class ManaBar : MonoBehaviour
 
     private void endCasting()
     {
-        Animator pip = manaPipAnimators[_playerMana.Mana - 1];
+        if (_playerMana.Mana > 0)
+        {
+            Animator pip = manaPipAnimators[_playerMana.Mana - 1];
 
-        if (_playerMana.Primed && _playerMana.Mana > 0)
-        {
-            _playerMana.Primed = false;
-            _playerMana.Mana -= 1;
+
+            if (_playerMana.Primed)
+            {
+                _playerMana.Primed = false;
+                _playerMana.Mana -= 1;
+            }
+            else
+            {
+                pip.SetBool("interrupt", true);
+                pip.SetTrigger("cancel");
+            }
+            pip.SetBool("casting", false);
+            pip.SetBool("charging", false);
         }
-        else
-        {
-            pip.SetBool("interrupt", true);
-            pip.SetTrigger("cancel");
-        }
-        pip.SetBool("casting", false);
-        pip.SetBool("charging", false);
     }
 
     private void primeMana()
@@ -131,10 +134,13 @@ public class ManaBar : MonoBehaviour
 
     private void cancelManaChange()
     {
-        Animator pip = manaPipAnimators[_playerMana.Mana - 1];
-        pip.SetBool("casting", false);
-        pip.SetBool("charging", false);
-        pip.SetTrigger("cancel");
+        if (_playerMana.Mana > 0)
+        {
+            Animator pip = manaPipAnimators[_playerMana.Mana - 1];
+            pip.SetBool("casting", false);
+            pip.SetBool("charging", false);
+            pip.SetTrigger("cancel");
+        }
     }
 
     private void startCharging()

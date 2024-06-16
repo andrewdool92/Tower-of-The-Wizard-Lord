@@ -61,6 +61,7 @@ public class IceBlock : Projectile
         if (other.gameObject.CompareTag("blocker"))
         {
             _body.velocity *= -0.8f;
+            print($"relative velocity: {other.relativeVelocity.magnitude}");
             if (other.relativeVelocity.magnitude > collisionDamageThreshold)
             {
                 takeDamage(1);

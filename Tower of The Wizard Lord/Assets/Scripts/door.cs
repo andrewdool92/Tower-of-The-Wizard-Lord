@@ -5,6 +5,7 @@ using UnityEngine;
 public class door : Switchable
 {
     [SerializeField] bool start_open;
+    public bool invertSwitchEffect;
     [SerializeField] Sprite[] topSprites;
     [SerializeField] Sprite[] bottomSprites;
 
@@ -30,13 +31,17 @@ public class door : Switchable
 
     public void setDoorState(bool open)
     {
+        _state = open;
+        if (invertSwitchEffect)
+        {
+            open = !open;
+        }
         int index = open ? 0 : 1;
         _topSprite.sprite = topSprites[index];
         _bottomSprite.sprite = bottomSprites[index];
         
         _collider.enabled = !open;
         _isOpen = open;
-        _state = open;
     }
 
     public void toggleDoorState()

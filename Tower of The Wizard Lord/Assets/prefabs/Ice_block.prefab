@@ -171,7 +171,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: bf3b19fb22671e94c9f48d5cae6f89b4, type: 3}
   impactThreshold: 13
   damagePerCollision: 3
-  collisionDamageThreshold: 0
+  collisionDamageThreshold: 4
 --- !u!114 &5658159770662622747
 MonoBehaviour:
   m_ObjectHideFlags: 0

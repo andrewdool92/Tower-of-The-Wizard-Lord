@@ -16,6 +16,7 @@ using UnityEngine;
 public class Switchable : MonoBehaviour
 {
     private bool _ready;
+    public switchRules rule = switchRules.ALL;
 
     [SerializeField] private AudioClip[] _swtichOnAudioFX;
     [SerializeField] private AudioClip[] _switchOffAudioFX;
@@ -93,6 +94,7 @@ public class Switchable : MonoBehaviour
     {
         bool previous = _state;
         _state = evaluateToggle();
+        Debug.Log($"new state: {_state}");
 
         if (_state != previous)
         {
@@ -107,7 +109,24 @@ public class Switchable : MonoBehaviour
      */
     public virtual bool evaluateToggle()
     {
-        return toggles.Values.All(x => x);
+        string t = "";
+        foreach (bool value in toggles.Values)
+        {
+            t += $"{value} ";
+        }
+        Debug.Log($"evaluating: {t}");
+        if (rule == switchRules.ALL)
+        {
+            return toggles.Values.All(x => x);
+        }
+        else if (rule == switchRules.ANY)
+        {
+            return toggles.Values.Any(x => x);
+        }
+        else
+        {
+            return false;
+        }
     }
 
     /**
@@ -129,4 +148,10 @@ public class Switchable : MonoBehaviour
         //            AudioManager.Instance.playSoundClip(audioClips[rand], transform, 0.5f);
         //        }
     }
+}
+
+public enum switchRules
+{
+    ALL,
+    ANY
 }
