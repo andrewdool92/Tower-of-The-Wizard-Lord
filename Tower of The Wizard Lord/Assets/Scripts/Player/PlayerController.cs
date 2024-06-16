@@ -71,7 +71,12 @@ public class PlayerController : MonoBehaviour
 
         _dropController = GetComponent<PitfallDropable>();
         _dropController.onPitfall += handlePitfall;
+
         _damageController = GetComponent<damageable>();
+        _damageController.damageEvent += takeDamage;
+        _damageController.knockbackEvent += setKnockBack;
+        _damageController.immunityUpdateEvent += updateBarrier;
+
         _collider = GetComponent<Collider2D>();
 
         setupSpells();
@@ -96,7 +101,13 @@ public class PlayerController : MonoBehaviour
         _inputReader.MoveEvent -= handleMove;
         _inputReader.SpellcastEvent -= handleSpellcast;
         _inputReader.SpellcastCancelledEvent -= handleSpellcastCancelled;
+
         _dropController.onPitfall -= handlePitfall;
+
+        _damageController.damageEvent -= takeDamage;
+        _damageController.knockbackEvent -= setKnockBack;
+        _damageController.immunityUpdateEvent -= updateBarrier;
+
         GameManager.spellSelectEvent -= equipSpell;
         GameManager.PlayerDamageEvent -= triggerBarrier;
     }
@@ -373,6 +384,54 @@ public class PlayerController : MonoBehaviour
             _barrierAnimator.SetTrigger("break");
         }
     }
+
+    private void applyKnockBack()
+    {
+        _timer -= Time.deltaTime;
+        if (_timer < 0)
+        {
+            _animator.SetBool("rooted", false);
+            resumeControl();
+        }
+    }
+
+    public void setKnockBack(Vector2 force, float duration)
+    {
+        disableControl();
+        _animator.SetBool("rooted", true);
+        _animator.SetBool("Running", false);
+        _animator.SetFloat("Speed", 0f);
+
+        _body.velocity = force;
+        _timer = duration;
+        _move = applyKnockBack;
+    }
+
+    public void setKnockBack(float force, float duration)
+    {
+        setKnockBack(-force * _facingDirection, duration);
+    }
+
+    public void setKnockBack(float force, Vector2 direction, float duration)
+    {
+        if (force > 0)
+        {
+            setKnockBack(force, duration);
+        }
+        else
+        {
+            setKnockBack(direction, duration);
+        }
+    }
+
+    private void takeDamage(int damage)
+    {
+        for (int i = 0; i < damage; i++)
+        {
+            GameManager.Instance.updateMana(ManaPhase.damage);
+        }
+    }
+
 
     public void updateBarrier(bool immune)
     {

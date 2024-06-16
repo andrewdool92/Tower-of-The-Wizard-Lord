@@ -2,41 +2,42 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using TMPro;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    [SerializeField] bool isPhysicsObject = false;     //  determines logic for how this projectile is simulated
     //[SerializeField] bool destroyOnImpact = false;     
 
     [SerializeField] float speedModifier;
     [SerializeField] float powerScaler;
     [SerializeField] float maxVelocity;
-    [SerializeField] float lifespan;
+    [SerializeField] public float lifespan;
     [SerializeField] float[] impactRadius;
     [SerializeField] Vector2[] impactOffset;
-    [SerializeField] AudioClip[] impactFX;
+    [SerializeField] public AudioClip[] impactFX;
     [SerializeField] float impactThreshold;
 
-    private Animator _animator;
-    private SpriteRenderer _sprite;
-    private Collider2D _projectileCollider;
-    private CircleCollider2D _impactCollider;
-    private Rigidbody2D _body;
+    protected Animator _animator;
+    protected SpriteRenderer _sprite;
+    protected Collider2D _projectileCollider;
+    protected CircleCollider2D _impactCollider;
+    protected Rigidbody2D _body;
 
     private int _power;
 
-    private float _timer;
-    private float _velocity;
+    protected float _timer;
+    protected float _velocity;
+    protected Vector3 _direction;
 
-    private delegate void OnUpdate();
-    private OnUpdate _onUpdate;
+    protected delegate void OnUpdate();
+    protected OnUpdate _onUpdate;
 
-    private delegate void OnCollision(UnityEngine.Collision2D collision);
-    private OnCollision _collision;
+    protected delegate void OnCollision(UnityEngine.Collision2D collision);
+    protected OnCollision _collision;
 
     // Start is called before the first frame update
-    void Start()
+    public virtual void Start()
     {
         _sprite = GetComponentInChildren<SpriteRenderer>();
         _animator = GetComponentInChildren<Animator>();
@@ -49,8 +50,6 @@ public class Projectile : MonoBehaviour
         _sprite.enabled = false;
         _animator.enabled = false;
         _projectileCollider.enabled = false;
-        
-        _timer = lifespan;
     }
 
     // Update is called once per frame
@@ -65,7 +64,7 @@ public class Projectile : MonoBehaviour
         _collision?.Invoke(collision);
     }
 
-    private void _triggerImpact()
+    public virtual void _triggerImpact()
     {
         transform.up = Vector2.up;
         _velocity = 0;
@@ -104,6 +103,31 @@ public class Projectile : MonoBehaviour
         _power = index;
     }
 
+
+    public virtual void activeUpdate()
+    {
+        transform.position += _velocity * Time.deltaTime * _direction;
+        if (_timer < 0 )
+        {
+            _triggerImpact();
+        }
+    }
+
+    public virtual void activeCollision(UnityEngine.Collision2D other)
+    {
+        if (other.gameObject.CompareTag("blocker"))
+        {
+            _triggerImpact();
+        }
+    }
+
+    public virtual void setActive(Vector3 direction)
+    {
+        _direction = direction;
+        _onUpdate = activeUpdate;
+        _collision = activeCollision;
+    }
+
     public void launch(Vector2 position, Vector2 direction, float power)
     {
         transform.position = position;
@@ -119,44 +143,11 @@ public class Projectile : MonoBehaviour
         _animator.ResetTrigger("impact");
         _animator.SetTrigger("launch");
 
-        if (!isPhysicsObject)
-        {
-            transform.up = direction;
-            _onUpdate = () =>
-            {
-                transform.position += transform.up * _velocity * Time.deltaTime;
-                if (_timer < 0)
-                {
-                    _triggerImpact();
-                }
-            };
+        setActive(new Vector3(direction.x, direction.y, 0));
+    }
 
-            _collision = (collision) =>
-            {
-                if (collision.gameObject.CompareTag("blocker"))
-                {
-                    _triggerImpact();
-                }
-            };
-        }
-        else
-        {
-            _body.velocity = direction.normalized * _velocity;
-            _onUpdate = () =>
-            {
-                if (_timer < 0)
-                {
-                    _triggerImpact();
-                }
-            };
-
-            _collision = (collision) =>
-            {
-                if (collision.gameObject.CompareTag("blocker"))
-                {
-                    _body.velocity = _body.velocity * -0.8f;
-                }
-            };
-        }
+    public void setSprite(Sprite sprite)
+    {
+        _sprite.sprite = sprite;
     }
 }

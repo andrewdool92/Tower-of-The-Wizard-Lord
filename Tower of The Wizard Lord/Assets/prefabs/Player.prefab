@@ -374,7 +374,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: 1
-  immunityTime: 0
+  immunityTime: 1
   immune: 0
 --- !u!58 &7142273420957319013
 CircleCollider2D:
